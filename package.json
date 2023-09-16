@@ -1,0 +1,16 @@
+{
+  "name": "charlie-pi",
+  "version": "1.0.0",
+  "description": "An admin site with CRUD sistem using PHP. ACADEMIC PROJECT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "ejs-mate": "^4.0.0"
+  }
+}
