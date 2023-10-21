@@ -1,0 +1,24 @@
+.bg-danger {
+  background-color: rgb(172, 15, 15) !important;
+}
+
+/* .searchBar {
+  transition: all linear;
+} */
+
+.searchInput {
+  width: 40px;
+  transition: width 0.3s linear;
+}
+
+.searchBar:hover .searchInput,
+.searchInput:focus,
+.searchInput:valid {
+  outline: none;
+  width: 230px;
+}
+
+.searchBtn,
+.searchBtn:hover {
+  color: rgb(172, 15, 15);
+}
