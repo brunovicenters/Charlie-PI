@@ -1,5 +1,5 @@
 .bg-danger {
-  background-color: rgb(172, 15, 15) !important;
+  background-color: #b70000 !important;
 }
 
 /* .searchBar {
@@ -20,5 +20,5 @@
 
 .searchBtn,
 .searchBtn:hover {
-  color: rgb(172, 15, 15);
+  color: #b70000;
 }
