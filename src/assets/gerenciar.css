@@ -2,10 +2,6 @@
   background-color: #b70000 !important;
 }
 
-/* .searchBar {
-  transition: all linear;
-} */
-
 .searchInput {
   width: 40px;
   transition: width 0.3s linear;
@@ -21,4 +17,13 @@
 .searchBtn,
 .searchBtn:hover {
   color: #b70000;
+}
+
+.tabela {
+  overflow-y: scroll;
+  max-height: 80vh;
+}
+
+.linhaTabela:hover {
+  background-color: #e8e8e8;
 }
