@@ -25,6 +25,7 @@ $addButton = "Adicionar produto";
                             <th scope="col">Descrição</th>
                             <th scope="col">Preço</th>
                             <th scope="col">Desconto</th>
+                            <th scope="col">Estoque</th>
                             <th scope="col">Categoria</th>
                             <th scope="col">Ativo</th>
                             <th scope="col"></th>
@@ -38,6 +39,7 @@ $addButton = "Adicionar produto";
                             <td>Uma camiseta preta, lisa, confortável, GG...</td>
                             <td>R$ 33,00</td>
                             <td>15%</td>
+                            <td>200x</td>
                             <td>Camiseta</td>
                             <td>Sim</td>
                             <td>
