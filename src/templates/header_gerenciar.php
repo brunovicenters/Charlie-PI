@@ -1,5 +1,5 @@
 <header class="bg-danger py-3 px-4 d-flex justify-content-between">
-    <!-- Novo Produto -->
+    <!-- Novo -->
     <a href="" type="button" class="btn btn-light border border-0 rounded fw-semibold"><?= $addButton ?></a>
     <!-- Search Bar -->
     <form action="/" method="post" class="d-flex searchBar bg-light rounded-pill position-relative">
