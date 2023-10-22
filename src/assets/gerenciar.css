@@ -1,0 +1,29 @@
+.bg-danger {
+  background-color: #b70000 !important;
+}
+
+.searchInput {
+  width: 40px;
+  transition: width 0.3s linear;
+}
+
+.searchBar:hover .searchInput,
+.searchInput:focus,
+.searchInput:valid {
+  outline: none;
+  width: 230px;
+}
+
+.searchBtn,
+.searchBtn:hover {
+  color: #b70000;
+}
+
+.tabela {
+  overflow-y: scroll;
+  max-height: 80vh;
+}
+
+.linhaTabela:hover {
+  background-color: #e8e8e8;
+}
