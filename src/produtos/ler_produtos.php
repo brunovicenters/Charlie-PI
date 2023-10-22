@@ -63,7 +63,7 @@ $addButton = "Adicionar produto";
                                                     <label class="form-label col-md-12" for="categoria">Categoria:</label>
                                                     <input class="form-control col-md-12 mt-2 mb-3" type="text" name="categoria" id="categoria" step="0.01" required value="Camiseta">
                                                     <label class="form-label col-md-12" for="ativo">Ativo:</label>
-                                                    <input class="form-control col-md-12 mt-2 mb-3" type="number" name="ativo" id="ativo" step="0.01" required value="1">
+                                                    <input class="form-control col-md-12 mt-2 mb-3" type="number" min="0" max="1" name="ativo" id="ativo" step="0.01" required value="1">
                                                     <button type="submit" class="btn btn-success">Update</button>
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                 </form>
