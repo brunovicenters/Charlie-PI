@@ -17,8 +17,6 @@ require_once "../../conexao/conexao.php";
 // Realizando pesquisa baseada na barra de pesquisa
 if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     try {
-        $_GET['empty'] = "";
-
         $search = $_POST['search'];
 
         $query = $pdo->prepare("SELECT CATEGORIA_ID, CATEGORIA_NOME, CATEGORIA_DESC, CATEGORIA_ATIVO from CATEGORIA where CATEGORIA_NOME like '%$search%'");
