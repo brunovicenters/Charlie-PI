@@ -4,6 +4,7 @@ session_start();
 // Definindo variáveis para os imports
 $pagNome = "Gerenciar Categoria";
 $addButton = "Adicionar Categoria";
+$redirect = "ler_categoria.php";
 
 // if (!isset($_SESSION["admin_logado"])) {
 //     header("Location:../login/login.php");
@@ -16,6 +17,8 @@ require_once "../../conexao/conexao.php";
 // Realizando pesquisa baseada na barra de pesquisa
 if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     try {
+        $_GET['empty'] = "";
+
         $search = $_POST['search'];
 
         $query = $pdo->prepare("SELECT CATEGORIA_ID, CATEGORIA_NOME, CATEGORIA_DESC, CATEGORIA_ATIVO from CATEGORIA where CATEGORIA_NOME like '%$search%'");
@@ -26,6 +29,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
         if (empty($categorias)) {
             // Redireciona com erro
             header("Location:./ler_categoria.php?empty=$search");
+            exit();
         }
     } catch (PDOException $e) {
         echo "Erro: " . $e->getMessage();
@@ -139,8 +143,8 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                 </table>
             </main>
             <?php
-            if (isset($_GET['empty'])) {
-                $result = $_GET['empty'];
+            if (isset($_GET['empty']) && !empty($_GET['empty'])) {
+                $empty = $_GET['empty'];
             ?>
                 <button type="button" class="btn visually-hidden position-absolute" id="liveToastBtn"></button>
 
@@ -149,7 +153,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                     <div id="liveToast" class="toast align-items-center bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true">
                         <div class="d-flex">
                             <div class="toast-body">
-                                Nenhum resultado encontrado com <?= $result ?>
+                                Nenhum resultado encontrado com <?= $empty ?>
                             </div>
                             <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                         </div>
