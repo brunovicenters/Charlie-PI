@@ -1,17 +1,19 @@
 <?php
 session_start();
 
+// Definindo variáveis para os imports
 $pagNome = "Gerenciar Categoria";
 $addButton = "Adicionar Categoria";
-$file = "./ler_categoria.php";
 
 // if (!isset($_SESSION["admin_logado"])) {
 //     header("Location:../login/login.php");
 //     exit();
 // }
 
+// Conexão com o Banco de Dados
 require_once "../../conexao/conexao.php";
 
+// Realizando pesquisa baseada na barra de pesquisa
 if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     try {
         $search = $_POST['search'];
@@ -22,11 +24,13 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
 
         $categorias = $query->fetchAll(PDO::FETCH_ASSOC);
         if (empty($categorias)) {
+            // Redireciona com erro
             header("Location:./ler_categoria.php?empty=$search");
         }
     } catch (PDOException $e) {
         echo "Erro: " . $e->getMessage();
     }
+    // Realizando pesquisa geral
 } else {
     try {
         $query = $pdo->prepare("SELECT CATEGORIA_ID, CATEGORIA_NOME, CATEGORIA_DESC, CATEGORIA_ATIVO from CATEGORIA");
@@ -137,7 +141,22 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
             <?php
             if (isset($_GET['empty'])) {
                 $result = $_GET['empty'];
-                echo "<p class='text-center text-danger mt-2'>Nothing found with $result</p>";
+            ?>
+                <button type="button" class="btn visually-hidden position-absolute" id="liveToastBtn"></button>
+
+                <!-- Toast Message -->
+                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                    <div id="liveToast" class="toast align-items-center bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="d-flex">
+                            <div class="toast-body">
+                                Nenhum resultado encontrado com <?= $result ?>
+                            </div>
+                            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+                <script src="../scripts/toast.js"></script>
+            <?php
             }
             ?>
         </div>
