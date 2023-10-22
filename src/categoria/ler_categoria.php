@@ -114,9 +114,9 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                     </div>
                                 </td>
                                 <td>
-                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3"></i></a>
+                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $counter ?>"><i class="bi bi-trash3"></i></a>
                                     <!-- Modal Delete -->
-                                    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="deleteModal<?= $counter ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -124,7 +124,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a href="/" type="btn" class="btn bg-danger text-white">Delete</a>
+                                                    <a href="./excluir_categoria.php?id=<?= $categoria['CATEGORIA_ID'] ?>" type="btn" class="btn bg-danger text-white">Delete</a>
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
