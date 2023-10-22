@@ -1,7 +1,7 @@
 <?php
 $pagNome = "Gerenciar Administrador";
 $addButton = "Adicionar Administrador";
-$id = 2;
+$id = 1;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +45,7 @@ $id = 2;
                                         <div class="modal-dialog ">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="editModalLabel">Tem certeza que quer editar Vyce?</h1>
+                                                    <h1 class="modal-title fs-5" id="editModalLabel">Tem certeza que quer editar o(a) admin?</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
