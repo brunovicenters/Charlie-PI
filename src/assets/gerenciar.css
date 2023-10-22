@@ -4,12 +4,13 @@
 
 .searchInput {
   width: 40px;
+  visibility: hidden;
   transition: width 0.3s linear;
 }
 
 .searchBar:hover .searchInput,
-.searchInput:focus,
-.searchInput:valid {
+.searchInput:focus {
+  visibility: visible;
   outline: none;
   width: 230px;
 }
