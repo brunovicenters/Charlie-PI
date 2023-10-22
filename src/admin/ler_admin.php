@@ -1,6 +1,7 @@
 <?php
 $pagNome = "Gerenciar Administrador";
 $addButton = "Adicionar Administrador";
+$id = 2;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +23,6 @@ $addButton = "Adicionar Administrador";
                             <th scope="col">Id</th>
                             <th scope="col">Nome</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Senha</th>
                             <th scope="col">Ativo</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
@@ -33,35 +33,41 @@ $addButton = "Adicionar Administrador";
                             <td>1</td>
                             <td>Vyce</td>
                             <td>vyce@gmail.com</td>
-                            <td>senha</td>
                             <td>Sim</td>
+
                             <td>
-                                <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-pencil-square"></i></a>
-                                <!-- Modal Edit-->
-                                <div class="modal fade " id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog ">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="editModalLabel">Tem certeza que quer editar Vyce?</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="/" method="post" class="col-md-12 text-start" enctype="multipart/form-data">
-                                                    <label class="form-label col-md-12" for="nome">Nome:</label>
-                                                    <input class="form-control col-md-12 mt-2 mb-3" type="text" name="nome" id="nome" required value="Vyce">
-                                                    <label class="form-label col-md-12 mb-2" for="email">Email:</label>
-                                                    <input class="form-control col-md-12 mt-2 mb-3" type="email" name="email" id="email" required value="vyce@gmail.com">
-                                                    <label class="form-label col-md-12" for="senha">Senha:</label>
-                                                    <input class="form-control col-md-12 mt-2 mb-3" type="password" name="senha" id="senha" step="0.01" required value="senha">
-                                                    <label class="form-label col-md-12" for="ativo">Ativo:</label>
-                                                    <input class="form-control col-md-12 mt-2 mb-3" type="number" min="0" max="1" name="ativo" id="ativo" step="0.01" required value="1">
-                                                    <button type="submit" class="btn btn-success">Update</button>
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                </form>
+                                <?php
+                                if ($id == 1) {
+                                ?>
+                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-pencil-square"></i></a>
+                                    <!-- Modal Edit-->
+                                    <div class="modal fade " id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog ">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="editModalLabel">Tem certeza que quer editar Vyce?</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/" method="post" class="col-md-12 text-start" enctype="multipart/form-data">
+                                                        <label class="form-label col-md-12" for="nome">Nome:</label>
+                                                        <input class="form-control col-md-12 mt-2 mb-3" type="text" name="nome" id="nome" required value="Vyce">
+                                                        <label class="form-label col-md-12 mb-2" for="email">Email:</label>
+                                                        <input class="form-control col-md-12 mt-2 mb-3" type="email" name="email" id="email" required value="vyce@gmail.com">
+                                                        <label class="form-label col-md-12" for="senha">Senha:</label>
+                                                        <input class="form-control col-md-12 mt-2 mb-3" type="password" name="senha" id="senha" step="0.01" required value="senha">
+                                                        <label class="form-label col-md-12" for="ativo">Ativo:</label>
+                                                        <input class="form-control col-md-12 mt-2 mb-3" type="number" min="0" max="1" name="ativo" id="ativo" step="0.01" required value="1">
+                                                        <button type="submit" class="btn btn-success">Update</button>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                <?php } else { ?>
+                                    <a class="editAdmin"><button class="btn btn-black " disabled><i class="bi bi-pencil-square"></i></button></a>
+                                <?php } ?>
                             </td>
                             <td>
                                 <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3"></i></a>
