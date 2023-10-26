@@ -1,0 +1,19 @@
+.bodyLogin {
+  height: 100vh;
+}
+
+.bg-danger {
+  background-color: #b70000 !important;
+}
+
+.card {
+  width: 30rem;
+}
+
+.card-body label {
+  background-color: #c95c5c;
+}
+
+.logoCharlie {
+  width: 20rem;
+}
