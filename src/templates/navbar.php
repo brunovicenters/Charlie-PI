@@ -20,7 +20,7 @@
             <a class="nav-link" href="./../produtos/ler_produtos.php">Gerenciar Produtos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./../login/login.php">Gerenciar Categoria</a>
+            <a class="nav-link" href="./../categoria/ler_categoria.php">Gerenciar Categoria</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./../admin/ler_admin.php">Gerenciar Administrador</a>
