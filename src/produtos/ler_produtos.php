@@ -21,8 +21,8 @@ $name = "Fulano Justinho";
                 <table class="text-center col-md-12">
                     <thead class="bg-danger-subtle sticky-top">
                         <tr>
-                            <th scope="col">Imagem</th>
                             <th scope="col">Id</th>
+                            <th scope="col">Imagem</th>
                             <th scope="col">Nome</th>
                             <th scope="col">Descrição</th>
                             <th scope="col">Preço</th>
@@ -35,8 +35,8 @@ $name = "Fulano Justinho";
                         </tr>
                     <tbody>
                         <tr class="border-bottom linhaTabela">
-                            <td><img src="https://cdn.vnda.com.br/bolovo/2021/03/12/17_3_3_323_camisetapretabasicaII.jpg?v=1620159237" alt="descrição_generica.php" width="150"></td>
                             <td>1</td>
+                            <td><img src="https://cdn.vnda.com.br/bolovo/2021/03/12/17_3_3_323_camisetapretabasicaII.jpg?v=1620159237" alt="descrição_generica.php" width="150"></td>
                             <td>Camiseta Preta</td>
                             <td>Uma camiseta preta, lisa, confortável, GG...</td>
                             <td>R$ 33,00</td>
