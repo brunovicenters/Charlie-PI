@@ -1,5 +1,12 @@
 <?php
-$pagNome = "Criar Produto"
+$pagNome = "Criar Produto";
+$name = "Fulano Justinho";
+
+$prodNome = "";
+$prodDesc = "";
+$prodValor = "";
+$prodDesconto = "";
+$prodCategoria = "";
 ?>
 <!DOCTYPE html>
 <html lang="en">

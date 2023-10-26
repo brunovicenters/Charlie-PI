@@ -1,5 +1,11 @@
 <?php
-$pagNome = "Criar Categoria"
+$pagNome = "Criar Categoria";
+$name = "Fulano Justinho";
+
+$catNome = "";
+$catNome = "";
+$catAtivo = "";
+$catDesc = "";
 ?>
 <!DOCTYPE html>
 <html lang="en">

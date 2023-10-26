@@ -2,6 +2,7 @@
 $pagNome = "Gerenciar Administrador";
 $addButton = "Adicionar Administrador";
 $linkAdd = "./criar_admin.php";
+$name = "Fulano Justinho";
 $id = 1;
 ?>
 <!DOCTYPE html>

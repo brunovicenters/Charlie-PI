@@ -2,6 +2,7 @@
 $pagNome = "Gerenciar produtos";
 $addButton = "Adicionar produto";
 $linkAdd = "./criar_produtos.php";
+$name = "Fulano Justinho";
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -6,6 +6,7 @@ $pagNome = "Gerenciar Categoria";
 $addButton = "Adicionar Categoria";
 $linkAdd = "./criar_categoria.php";
 $redirect = "ler_categoria.php";
+$name = "Fulano Justinho";
 
 // if (!isset($_SESSION["admin_logado"])) {
 //     header("Location:../login/login.php");

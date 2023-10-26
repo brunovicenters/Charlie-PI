@@ -1,5 +1,11 @@
 <?php
-$pagNome = "Criar Adiministrador"
+$pagNome = "Criar Adiministrador";
+$name = "Fulano Justinho";
+
+$admNome = "";
+$admEmail = "";
+$admSenha = "";
+$admAtivo = "";
 ?>
 <!DOCTYPE html>
 <html lang="en">

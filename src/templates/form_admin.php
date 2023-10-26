@@ -1,10 +1,3 @@
-<?php
-$admNome = "";
-$admEmail = "";
-$admSenha = "";
-$admAtivo = "";
-?>
-
 <div class="card formCriar">
   <div class="card-body">
     <form action="/" method="post" class="col-md-12 text-start" enctype="multipart/form-data">
