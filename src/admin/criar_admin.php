@@ -1,9 +1,10 @@
-<?= 
+<?php
 $pagNome = "Criar Adiministrador"
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <?php include "../templates/head.php" ?>
+<?php include "../templates/head.php" ?>
+<link rel="stylesheet" href="./../assets/criar.css">
 
 <body>
     <?php include "../templates/navbar.php" ?>
