@@ -5,6 +5,7 @@ $linkAdd = "./criar_produtos.php";
 $name = "Fulano Justinho";
 
 $formPath = "./editar_produtos.php";
+$prodId = "1";
 $prodNome = "Camiseta Preta";
 $prodDesc = "Uma camiseta preta, lisa, confortável, GG, perfeita para pessoas estilosas";
 $prodValor = "33.00";
@@ -46,8 +47,8 @@ $botao = "Editar";
                         </tr>
                     <tbody>
                         <tr class="border-bottom linhaTabela">
-                            <td>1</td>
-                            <td><img src="https://cdn.vnda.com.br/bolovo/2021/03/12/17_3_3_323_camisetapretabasicaII.jpg?v=1620159237" alt="descrição_generica.php" width="150"></td>
+                            <td><?= $prodId ?></td>
+                            <td><img src="<?= $prodImagem ?>" alt="descrição_generica.php" width="150"></td>
                             <td><?= $prodNome ?></td>
                             <td class="text-truncate"><?= $prodDesc ?></td>
                             <td>R$ <?= $prodValor ?></td>
