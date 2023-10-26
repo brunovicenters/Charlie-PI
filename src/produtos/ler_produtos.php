@@ -3,6 +3,16 @@ $pagNome = "Gerenciar produtos";
 $addButton = "Adicionar produto";
 $linkAdd = "./criar_produtos.php";
 $name = "Fulano Justinho";
+
+$formPath = "./editar_produtos.php";
+$prodNome = "Camiseta Preta";
+$prodDesc = "Uma camiseta preta, lisa, confortável, GG, perfeita para pessoas estilosas";
+$prodValor = "33.00";
+$prodDesconto = "15";
+$prodEstoque = "200";
+$prodCategoria = "";
+$prodAtivo = "1";
+$botao = "Editar";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,11 +47,11 @@ $name = "Fulano Justinho";
                         <tr class="border-bottom linhaTabela">
                             <td>1</td>
                             <td><img src="https://cdn.vnda.com.br/bolovo/2021/03/12/17_3_3_323_camisetapretabasicaII.jpg?v=1620159237" alt="descrição_generica.php" width="150"></td>
-                            <td>Camiseta Preta</td>
-                            <td class="text-truncate">Uma camiseta preta, lisa, confortável, GG Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa nesciunt inventore consequatur, necessitatibus debitis et, ipsum rem ullam modi laudantium corrupti ab doloribus recusandae illum totam. Facere obcaecati qui nisi.</td>
-                            <td>R$ 33,00</td>
-                            <td>15%</td>
-                            <td>200x</td>
+                            <td><?= $prodNome ?></td>
+                            <td class="text-truncate"><?= $prodDesc ?></td>
+                            <td>R$ <?= $prodValor ?></td>
+                            <td><?= $prodDesconto ?>%</td>
+                            <td><?= $prodEstoque ?>x</td>
                             <td>Camiseta</td>
                             <td>Sim</td>
                             <td>
@@ -55,22 +65,7 @@ $name = "Fulano Justinho";
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="/" method="post" class="col-md-12 text-start" enctype="multipart/form-data">
-                                                    <label class="form-label col-md-12" for="nome">Nome:</label>
-                                                    <input class="form-control col-md-12 mt-2 mb-3" type="text" name="nome" id="nome" required value="Camiseta Preta">
-                                                    <label class="form-label col-md-12 mb-2" for="desc">Descrição:</label>
-                                                    <textarea class="form-control col-md-12 mt-2 mb-3" name="desc" id="desc" cols="30" rows="5" required>Uma camiseta preta, lisa, confortável, GG, perfeita para pessoas estilosas</textarea>
-                                                    <label class="form-label col-md-12" for="preco">Preço:</label>
-                                                    <input class="form-control col-md-12 mt-2 mb-3" type="number" name="preco" id="preco" step="0.01" required value="33.00">
-                                                    <label class="form-label col-md-12" for="desconto">Desconto:</label>
-                                                    <input class="form-control col-md-12 mt-2 mb-3" type="number" name="desconto" id="desconto" step="0.01" required value="15">
-                                                    <label class="form-label col-md-12" for="categoria">Categoria:</label>
-                                                    <input class="form-control col-md-12 mt-2 mb-3" type="text" name="categoria" id="categoria" step="0.01" required value="Camiseta">
-                                                    <label class="form-label col-md-12" for="ativo">Ativo:</label>
-                                                    <input class="form-control col-md-12 mt-2 mb-3" type="number" min="0" max="1" name="ativo" id="ativo" step="0.01" required value="1">
-                                                    <button type="submit" class="btn btn-success">Update</button>
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                </form>
+                                                <?php include "../templates/form_produto.php" ?>
                                             </div>
                                         </div>
                                     </div>

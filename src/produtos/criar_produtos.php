@@ -2,11 +2,13 @@
 $pagNome = "Criar Produto";
 $name = "Fulano Justinho";
 
+$formPath = "/";
 $prodNome = "";
 $prodDesc = "";
 $prodValor = "";
 $prodDesconto = "";
 $prodCategoria = "";
+$botao = "Criar";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +19,11 @@ $prodCategoria = "";
     <?php include "../templates/navbar.php" ?>
     <div class="d-flex justify-content-center align-items-center mt-5 container mb-3">
         <div class="row">
-            <?php include "../templates/form_produto.php" ?>
+            <div class="card formCriar">
+                <div class="card-body">
+                    <?php include "../templates/form_produto.php" ?>
+                </div>
+            </div>
         </div>
     </div>
 </body>
