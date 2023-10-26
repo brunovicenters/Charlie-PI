@@ -80,7 +80,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                             <tr class="border-bottom linhaTabela">
                                 <td><?= $categoria['CATEGORIA_ID'] ?></td>
                                 <td><?= $categoria['CATEGORIA_NOME'] ?></td>
-                                <td><?= $categoria['CATEGORIA_DESC'] ?></td>
+                                <td class="text-truncate"><?= $categoria['CATEGORIA_DESC'] ?></td>
                                 <td>
                                     <?php
                                     if ($categoria['CATEGORIA_ATIVO'] == 1) { ?>
@@ -102,11 +102,11 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                                 </div>
                                                 <div class="modal-body">
                                                     <?php
-                                                    $catId = $categoria[$counter]['CATEGORIA_ID'];
-                                                    $catNome = $categoria[$counter]['CATEGORIA_NOME'];
-                                                    $catAtivo = $categoria[$counter]['CATEGORIA_ATIVO'];
-                                                    $catDesc = $categoria[$counter]['CATEGORIA_DESC'];
+                                                    $catId = $categoria['CATEGORIA_ID'];
                                                     $formPath = "./editar_categoria.php?$catId";
+                                                    $catNome = $categoria['CATEGORIA_NOME'];
+                                                    $catAtivo = $categoria['CATEGORIA_ATIVO'];
+                                                    $catDesc = $categoria['CATEGORIA_DESC'];
                                                     include "../templates/form_categoria.php"
                                                     ?>
                                                 </div>
