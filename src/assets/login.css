@@ -1,4 +1,4 @@
-.bodyLogin {
+.containerLogin {
   height: 100vh;
 }
 
@@ -6,14 +6,15 @@
   background-color: #b70000 !important;
 }
 
-.card {
+#login .card {
   width: 30rem;
+  border-radius: 15px;
 }
 
-.card-body label {
+#login .card-body label {
   background-color: #c95c5c;
 }
 
 .logoCharlie {
-  width: 20rem;
+  width: 15rem;
 }
