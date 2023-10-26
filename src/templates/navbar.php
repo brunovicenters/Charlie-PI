@@ -1,7 +1,7 @@
 <nav class="navbar bg-body-tertiary">
   <div class="container-fluid">
-    <img src="../assets/image/logoC.png" alt="" class="logoNav">
-    <a class="navbar-brand" href="#"><?= $pagNome; ?></a>
+    <a class="navbar-brand p-0 m-0" href="./../home/home.php"><img src="../assets/image/logoC.png" alt="" class="logoNav"></a>
+    <h1 class="h5 me-3 mb-0 fw-normal"><?= $pagNome; ?></h1>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
