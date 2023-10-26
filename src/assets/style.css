@@ -9,3 +9,17 @@
 .fotoAdm {
   width: 50px;
 }
+
+.carousel-indicators button {
+  background-color: black !important;
+  opacity: 1 !important;
+}
+
+.carousel-indicators [aria-current]:not([aria-current="false"]) {
+  background-color: #b70000 !important;
+}
+
+/* [aria-current]:is([aria-current="page"]) {
+  background-color: #b70000 !important;
+  color: white !important;
+} */
