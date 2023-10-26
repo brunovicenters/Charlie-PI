@@ -38,7 +38,7 @@ $name = "Fulano Justinho";
                             <td>1</td>
                             <td><img src="https://cdn.vnda.com.br/bolovo/2021/03/12/17_3_3_323_camisetapretabasicaII.jpg?v=1620159237" alt="descrição_generica.php" width="150"></td>
                             <td>Camiseta Preta</td>
-                            <td>Uma camiseta preta, lisa, confortável, GG...</td>
+                            <td class="text-truncate">Uma camiseta preta, lisa, confortável, GG Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa nesciunt inventore consequatur, necessitatibus debitis et, ipsum rem ullam modi laudantium corrupti ab doloribus recusandae illum totam. Facere obcaecati qui nisi.</td>
                             <td>R$ 33,00</td>
                             <td>15%</td>
                             <td>200x</td>

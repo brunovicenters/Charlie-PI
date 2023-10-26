@@ -38,3 +38,7 @@
 .editAdmin > button {
   border-color: rgba(000, 000, 000, 0) !important;
 }
+
+.text-truncate {
+  max-width: 9rem;
+}
