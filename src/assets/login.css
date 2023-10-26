@@ -1,0 +1,20 @@
+.containerLogin {
+  height: 100vh;
+}
+
+.bg-danger {
+  background-color: #b70000 !important;
+}
+
+#login .card {
+  width: 30rem;
+  border-radius: 15px;
+}
+
+#login .card-body label {
+  background-color: #c95c5c;
+}
+
+.logoCharlie {
+  width: 15rem;
+}
