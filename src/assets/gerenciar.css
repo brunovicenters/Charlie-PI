@@ -22,7 +22,7 @@
 
 .tabela {
   overflow-y: scroll;
-  max-height: 80vh;
+  max-height: 75vh;
 }
 
 .linhaTabela:hover {
