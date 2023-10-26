@@ -1,6 +1,7 @@
 <?php
 $pagNome = "Gerenciar produtos";
 $addButton = "Adicionar produto";
+$linkAdd = "./criar_produtos.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +26,7 @@ $addButton = "Adicionar produto";
                             <th scope="col">Descrição</th>
                             <th scope="col">Preço</th>
                             <th scope="col">Desconto</th>
+                            <th scope="col">Estoque</th>
                             <th scope="col">Categoria</th>
                             <th scope="col">Ativo</th>
                             <th scope="col"></th>
@@ -38,6 +40,7 @@ $addButton = "Adicionar produto";
                             <td>Uma camiseta preta, lisa, confortável, GG...</td>
                             <td>R$ 33,00</td>
                             <td>15%</td>
+                            <td>200x</td>
                             <td>Camiseta</td>
                             <td>Sim</td>
                             <td>
@@ -47,7 +50,7 @@ $addButton = "Adicionar produto";
                                     <div class="modal-dialog ">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="editModalLabel">Tem certeza que quer editar Camiseta Preta?</h1>
+                                                <h1 class="modal-title fs-5" id="editModalLabel">Tem certeza que quer editar o produto?</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
@@ -63,7 +66,7 @@ $addButton = "Adicionar produto";
                                                     <label class="form-label col-md-12" for="categoria">Categoria:</label>
                                                     <input class="form-control col-md-12 mt-2 mb-3" type="text" name="categoria" id="categoria" step="0.01" required value="Camiseta">
                                                     <label class="form-label col-md-12" for="ativo">Ativo:</label>
-                                                    <input class="form-control col-md-12 mt-2 mb-3" type="number" name="ativo" id="ativo" step="0.01" required value="1">
+                                                    <input class="form-control col-md-12 mt-2 mb-3" type="number" min="0" max="1" name="ativo" id="ativo" step="0.01" required value="1">
                                                     <button type="submit" class="btn btn-success">Update</button>
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                 </form>
@@ -79,7 +82,7 @@ $addButton = "Adicionar produto";
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="deleteModalLabel">Tem certeza que quer deletar Camiseta Preta?</h1>
+                                                <h1 class="modal-title fs-5" id="deleteModalLabel">Tem certeza que quer deletar o produto?</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-footer">
