@@ -2,10 +2,11 @@
 $pagNome = "Criar Categoria";
 $name = "Fulano Justinho";
 
-$catNome = "";
+$formPath = "/";
 $catNome = "";
 $catAtivo = "";
 $catDesc = "";
+$botao = "Criar";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +16,11 @@ $catDesc = "";
 <body>
     <?php include "../templates/navbar.php" ?>
     <div class="d-flex justify-content-center align-items-center mt-5">
-        <?php include "../templates/form_categoria.php" ?>
+        <div class="card formCriar">
+            <div class="card-body">
+                <?php include "../templates/form_categoria.php" ?>
+            </div>
+        </div>
     </div>
 </body>
 

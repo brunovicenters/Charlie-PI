@@ -7,6 +7,7 @@ $addButton = "Adicionar Categoria";
 $linkAdd = "./criar_categoria.php";
 $redirect = "ler_categoria.php";
 $name = "Fulano Justinho";
+$botao = "Editar";
 
 // if (!isset($_SESSION["admin_logado"])) {
 //     header("Location:../login/login.php");
@@ -90,9 +91,9 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                 </td>
 
                                 <td>
-                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-pencil-square"></i></a>
+                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal<?= $counter ?>"><i class="bi bi-pencil-square"></i></a>
                                     <!-- Modal Edit-->
-                                    <div class="modal fade " id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                    <div class="modal fade " id="editModal<?= $counter ?>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog ">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -100,16 +101,14 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="/" method="post" class="col-md-12 text-start" enctype="multipart/form-data">
-                                                        <label class="form-label col-md-12" for="nome">Nome:</label>
-                                                        <input class="form-control col-md-12 mt-2 mb-3" type="text" name="nome" id="nome" required value="Camiseta">
-                                                        <label class="form-label col-md-12 mb-2" for="desc">Descrição:</label>
-                                                        <textarea class="form-control col-md-12 mt-2 mb-3" name="desc" id="desc" cols="30" rows="5" required>Camisetas de manga cumprida, curta, todos os tamanhos e modelos</textarea>
-                                                        <label class="form-label col-md-12" for="ativo">Ativo:</label>
-                                                        <input class="form-control col-md-12 mt-2 mb-3" type="number" min="0" max="1" name="ativo" id="ativo" step="0.01" required value="1">
-                                                        <button type="submit" class="btn btn-success">Update</button>
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    </form>
+                                                    <?php
+                                                    $catId = $categoria[$counter]['CATEGORIA_ID'];
+                                                    $catNome = $categoria[$counter]['CATEGORIA_NOME'];
+                                                    $catAtivo = $categoria[$counter]['CATEGORIA_ATIVO'];
+                                                    $catDesc = $categoria[$counter]['CATEGORIA_DESC'];
+                                                    $formPath = "./editar_categoria.php?$catId";
+                                                    include "../templates/form_categoria.php"
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
