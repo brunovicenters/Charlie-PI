@@ -4,6 +4,7 @@ session_start();
 // Definindo variáveis para os imports
 $pagNome = "Gerenciar Categoria";
 $addButton = "Adicionar Categoria";
+$linkAdd = "./criar_categoria.php";
 $redirect = "ler_categoria.php";
 
 // if (!isset($_SESSION["admin_logado"])) {

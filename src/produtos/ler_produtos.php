@@ -1,6 +1,7 @@
 <?php
 $pagNome = "Gerenciar produtos";
 $addButton = "Adicionar produto";
+$linkAdd = "./criar_produtos.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
