@@ -3,7 +3,15 @@ $pagNome = "Gerenciar Administrador";
 $addButton = "Adicionar Administrador";
 $linkAdd = "./criar_admin.php";
 $name = "Fulano Justinho";
-$id = 1;
+
+$formPath = "./editar_admin.php";
+$admId = 1;
+$admNome = "Vyce";
+$admEmail = "vyce@gmail.com";
+$admSenha = "admin";
+$admAtivo = "1";
+$admImagem = "https://scontent.fcgh13-1.fna.fbcdn.net/v/t1.6435-9/195314757_4086125674805397_2346469584404627770_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=dd63ad&_nc_ohc=_ifY6l1fNIoAX_wSvgx&_nc_ht=scontent.fcgh13-1.fna&oh=00_AfA423VVnqmIfqWmEQYWD9D9EzAVjk8Zgrh7cqs2ds-IMA&oe=655C952A";
+$botao = "Criar";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,15 +39,15 @@ $id = 1;
                         </tr>
                     <tbody>
                         <tr class="border-bottom linhaTabela">
-                            <td>1</td>
-                            <td><img src="https://scontent.fcgh13-1.fna.fbcdn.net/v/t1.6435-9/195314757_4086125674805397_2346469584404627770_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=dd63ad&_nc_ohc=_ifY6l1fNIoAX_wSvgx&_nc_ht=scontent.fcgh13-1.fna&oh=00_AfA423VVnqmIfqWmEQYWD9D9EzAVjk8Zgrh7cqs2ds-IMA&oe=655C952A" alt="descrição_generica.php" width="150"></td>
-                            <td>Vyce</td>
-                            <td>vyce@gmail.com</td>
+                            <td><?= $admId ?></td>
+                            <td><img src="<?= $admImagem ?>" alt="descrição_generica.php" width="150"></td>
+                            <td><?= $admNome ?></td>
+                            <td><?= $admEmail ?></td>
                             <td>Sim</td>
 
                             <td>
                                 <?php
-                                if ($id == 1) {
+                                if ($admId == 1) {
                                 ?>
                                     <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-pencil-square"></i></a>
                                     <!-- Modal Edit-->
@@ -51,18 +59,7 @@ $id = 1;
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="/" method="post" class="col-md-12 text-start" enctype="multipart/form-data">
-                                                        <label class="form-label col-md-12" for="nome">Nome:</label>
-                                                        <input class="form-control col-md-12 mt-2 mb-3" type="text" name="nome" id="nome" required value="Vyce">
-                                                        <label class="form-label col-md-12 mb-2" for="email">Email:</label>
-                                                        <input class="form-control col-md-12 mt-2 mb-3" type="email" name="email" id="email" required value="vyce@gmail.com">
-                                                        <label class="form-label col-md-12" for="senha">Senha:</label>
-                                                        <input class="form-control col-md-12 mt-2 mb-3" type="password" name="senha" id="senha" step="0.01" required value="senha">
-                                                        <label class="form-label col-md-12" for="ativo">Ativo:</label>
-                                                        <input class="form-control col-md-12 mt-2 mb-3" type="number" min="0" max="1" name="ativo" id="ativo" step="0.01" required value="1">
-                                                        <button type="submit" class="btn btn-success">Update</button>
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    </form>
+                                                    <?php include "../templates/form_admin.php" ?>
                                                 </div>
                                             </div>
                                         </div>
