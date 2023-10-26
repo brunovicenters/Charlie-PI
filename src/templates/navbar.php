@@ -1,13 +1,13 @@
-<nav class="navbar bg-body-tertiary fixed-top">
+<nav class="navbar bg-body-tertiary">
   <div class="container-fluid">
     <img src="../assets/image/logoC.png" alt="" class="logoNav">
-    <a class="navbar-brand" href="#"><?=$pagNome; ?></a>
+    <a class="navbar-brand" href="#"><?= $pagNome; ?></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
-      <img src="../assets/image/fotoAdm.png" alt="" class="fotoAdm">
+        <img src="../assets/image/fotoAdm.png" alt="" class="fotoAdm">
         <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><?= $name ?></h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
