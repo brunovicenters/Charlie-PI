@@ -11,6 +11,7 @@ $prodValor = "33.00";
 $prodDesconto = "15";
 $prodEstoque = "200";
 $prodCategoria = "";
+$prodImagem = "https://cdn.vnda.com.br/bolovo/2021/03/12/17_3_3_323_camisetapretabasicaII.jpg?v=1620159237";
 $prodAtivo = "1";
 $botao = "Editar";
 ?>

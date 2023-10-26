@@ -13,6 +13,8 @@
     <option value="calor" selected>Calor</option>
     <option value="teste">Teste</option>
   </select>
+  <label class="form-label col-md-12" for="imagem">URL Imagem:</label>
+  <input class="form-control col-md-12 mt-2 mb-3" type="url" name="imagem" id="imagem" required value="<?= $prodImagem ?>">
   <label class="form-label col-md-12" for="ativo">Ativo:</label>
   <input class="form-control col-md-12 mt-2 mb-3" type="number" name="ativo" id="ativo" step="1" min="0" max="1" required value="<?= $prodAtivo ?>">
   <div class="col-md-12 text-end">

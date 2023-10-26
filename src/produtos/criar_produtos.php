@@ -8,6 +8,7 @@ $prodDesc = "";
 $prodValor = "";
 $prodDesconto = "";
 $prodCategoria = "";
+$prodImagem = "";
 $botao = "Criar";
 ?>
 <!DOCTYPE html>
