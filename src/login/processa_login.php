@@ -15,11 +15,10 @@ $query->execute();
 
 if ($query->rowCount() > 0) {
     $_SESSION["admin_login"] = true;
-    header("Location:teste.php");
+    header("Location:./../home/home.php");
     exit();
 
 } else {
-    header("Location:login.php?error");
+    header("Location:./login.php?error");
     exit();
 }
-?>
