@@ -1,0 +1,20 @@
+.logoNav{
+    width: 70px;
+}
+
+.navbar-toggler{
+    border: 0;
+}
+
+.fotoAdm{
+    width: 50px;
+}
+
+/* .carousel-indicators button{
+    opacity: 1 !important;
+}
+
+[aria-current]:not([aria-current="false"]){
+    background-color: #B70000 !important;
+    color: white;
+  } */
