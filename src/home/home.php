@@ -7,7 +7,7 @@ $pagNome = "Bem-vindo ao Charlie, $name";
 <html lang="en">
 <?php include "../templates/head.php" ?>
 
-<body>
+<body id="home">
   <?php include "../templates/navbar.php" ?>
 
   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
@@ -35,6 +35,7 @@ $pagNome = "Bem-vindo ao Charlie, $name";
     </button>
   </div>
   <div class="container mt-3">
+    <h2 class="h2 text-center">Últimos Produtos</h2>
     <div class="d-flex justify-content-evenly">
       <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
         <div class="col">
