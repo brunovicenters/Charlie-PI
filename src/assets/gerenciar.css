@@ -29,13 +29,13 @@
   background-color: #e8e8e8;
 }
 
-.editAdmin,
-.editAdmin:hover {
+.actionsAdmin,
+.actionsAdmin:hover {
   color: black;
   cursor: no-drop;
 }
 
-.editAdmin > button {
+.actionsAdmin > button {
   border-color: rgba(000, 000, 000, 0) !important;
 }
 
