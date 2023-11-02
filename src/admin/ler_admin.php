@@ -1,17 +1,50 @@
 <?php
+session_start();
+
+// if (!isset($_SESSION["admin_logado"])) {
+//     header("Location:../login/login.php");
+//     exit();
+// }
+
 $pagNome = "Gerenciar Administrador";
 $addButton = "Adicionar Administrador";
 $linkAdd = "./criar_admin.php";
+$redirect = "ler_admin.php";
 $name = "Fulano Justinho";
-
-$formPath = "./editar_admin.php";
-$admId = 1;
-$admNome = "Vyce";
-$admEmail = "vyce@gmail.com";
-$admSenha = "admin";
-$admAtivo = "1";
-$admImagem = "https://scontent.fcgh13-1.fna.fbcdn.net/v/t1.6435-9/195314757_4086125674805397_2346469584404627770_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=dd63ad&_nc_ohc=_ifY6l1fNIoAX_wSvgx&_nc_ht=scontent.fcgh13-1.fna&oh=00_AfA423VVnqmIfqWmEQYWD9D9EzAVjk8Zgrh7cqs2ds-IMA&oe=655C952A";
+$admLogId = 2; //session varible that has adm logged in id as value
 $botao = "Criar";
+
+require_once "../../conexao/conexao.php";
+
+if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
+    try {
+        $search = $_POST['search'];
+
+        $query = $pdo->prepare("SELECT ADM_ID, ADM_NOME, ADM_EMAIL, ADM_SENHA, ADM_ATIVO, ADM_IMAGEM from ADMINISTRADOR where ADM_NOME like '%$search%'");
+
+        $query->execute();
+
+        $admins = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (empty($admins)) {
+            // Redireciona com erro
+            header("Location:./ler_admin.php?empty=$search");
+            exit();
+        }
+    } catch (PDOException $e) {
+        echo "Erro: " . $e->getMessage();
+    }
+    // Realizando pesquisa geral
+} else {
+    try {
+        $query = $pdo->prepare("SELECT ADM_ID, ADM_NOME, ADM_EMAIL, ADM_SENHA, ADM_ATIVO, ADM_IMAGEM from ADMINISTRADOR");
+
+        $query->execute();
+
+        $admins = $query->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Erro: " . $e->getMessage();
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,59 +71,114 @@ $botao = "Criar";
                             <th scope="col"></th>
                         </tr>
                     <tbody>
-                        <tr class="border-bottom linhaTabela">
-                            <td><?= $admId ?></td>
-                            <td><img src="<?= $admImagem ?>" alt="descrição_generica.php" width="150"></td>
-                            <td><?= $admNome ?></td>
-                            <td><?= $admEmail ?></td>
-                            <td>Sim</td>
-
-                            <td>
-                                <?php
-                                if ($admId == 1) {
-                                ?>
-                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-pencil-square"></i></a>
-                                    <!-- Modal Edit-->
-                                    <div class="modal fade " id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog ">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="editModalLabel">Tem certeza que quer editar o(a) admin?</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <?php include "../templates/form_admin.php" ?>
+                        <?php
+                        foreach ($admins as $admin) :
+                        ?>
+                            <tr class="border-bottom linhaTabela">
+                                <td><?= $admin['ADM_ID'] ?></td>
+                                <td>
+                                    <?php
+                                    if ($admin['ADM_IMAGEM']) {
+                                    ?>
+                                        <img src="<?= $admin['ADM_IMAGEM'] ?>" alt="Admin image" width="150">
+                                    <?php } else { ?>
+                                        Não possui imagem
+                                    <?php } ?>
+                                </td>
+                                <td><?= $admin['ADM_NOME'] ?></td>
+                                <td><?= $admin['ADM_EMAIL'] ?></td>
+                                <td>
+                                    <?php
+                                    if ($admin['ADM_ATIVO'] == 1) { ?>
+                                        Sim
+                                    <?php } else { ?>
+                                        Não
+                                    <?php } ?>
+                                <td>
+                                    <?php
+                                    if ($admLogId == $admin['ADM_ID']) {
+                                    ?>
+                                        <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal<?= $admin['ADM_ID'] ?>"><i class="bi bi-pencil-square"></i></a>
+                                        <!-- Modal Edit-->
+                                        <div class="modal fade " id="editModal<?= $admin['ADM_ID'] ?>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog ">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="editModalLabel">Tem certeza que quer editar o(a) admin?</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <?php
+                                                        $admId = $admin['ADM_ID'];
+                                                        $formPath = "./editar_admin.php?id=$admId";
+                                                        $admNome = $admin['ADM_NOME'];
+                                                        $admEmail = $admin['ADM_EMAIL'];
+                                                        $admSenha = $admin['ADM_SENHA'];
+                                                        $admAtivo = $admin['ADM_ATIVO'];
+                                                        $admImagem = $admin['ADM_IMAGEM'];
+                                                        include "../templates/form_admin.php"
+                                                        ?>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                <?php } else { ?>
-                                    <a class="editAdmin"><button class="btn btn-black " disabled><i class="bi bi-pencil-square"></i></button></a>
-                                <?php } ?>
-                            </td>
-                            <td>
-                                <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3"></i></a>
-                                <!-- Modal Delete -->
-                                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="deleteModalLabel">Tem certeza que quer deletar o(a) admin?</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <a href="/" type="btn" class="btn bg-danger text-white">Delete</a>
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <?php } else { ?>
+                                        <a class="actionsAdmin"><button class="btn btn-black " disabled><i class="bi bi-pencil-square"></i></button></a>
+                                    <?php } ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    if ($admLogId == $admin['ADM_ID']) {
+                                    ?>
+                                        <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $admin['ADM_ID'] ?>"><i class="bi bi-trash3"></i></a>
+                                        <!-- Modal Delete -->
+                                        <div class="modal fade" id="deleteModal<?= $admin['ADM_ID'] ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="deleteModalLabel">Tem certeza que quer deletar o(a) admin?</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a href="/" type="btn" class="btn bg-danger text-white">Delete</a>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                                    <?php } else { ?>
+                                        <a class="actionsAdmin"><button class="btn btn-black " disabled><i class="bi bi-trash3"></i></button></a>
+                                    <?php } ?>
+                                </td>
+                            </tr>
+                        <?php
+                        endforeach;
+                        ?>
                     </tbody>
                     </thead>
                 </table>
             </main>
+            <?php
+            if (isset($_GET['empty']) && !empty($_GET['empty'])) {
+                $empty = $_GET['empty'];
+            ?>
+                <button type="button" class="btn visually-hidden position-absolute" id="liveToastBtn"></button>
+
+                <!-- Toast Message -->
+                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                    <div id="liveToast" class="toast align-items-center bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="d-flex">
+                            <div class="toast-body">
+                                Nenhum resultado encontrado com <?= $empty ?>
+                            </div>
+                            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+                <script src="../scripts/toast.js"></script>
+            <?php
+            }
+            ?>
         </div>
     </div>
 </body>
