@@ -1,20 +1,53 @@
 <?php
+session_start();
+
+// if (!isset($_SESSION["admin_logado"])) {
+//     header("Location:../login/login.php");
+//     exit();
+// }
+
 $pagNome = "Gerenciar produtos";
 $addButton = "Adicionar produto";
 $linkAdd = "./criar_produtos.php";
+$redirect = "ler_produtos.php";
 $name = "Fulano Justinho";
-
-$formPath = "./editar_produtos.php";
-$prodId = "1";
-$prodNome = "Camiseta Preta";
-$prodDesc = "Uma camiseta preta, lisa, confortável, GG, perfeita para pessoas estilosas";
-$prodValor = "33.00";
-$prodDesconto = "15";
-$prodEstoque = "200";
-$prodCategoria = "";
-$prodImagem = "https://cdn.vnda.com.br/bolovo/2021/03/12/17_3_3_323_camisetapretabasicaII.jpg?v=1620159237";
-$prodAtivo = "1";
 $botao = "Editar";
+
+require_once "../../conexao/conexao.php";
+
+if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
+    try {
+        $search = $_POST['search'];
+
+        $query = $pdo->prepare("SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_NOME, PI.IMAGEM_URL
+                                FROM PRODUTO P
+                                JOIN CATEGORIA C ON P.CATEGORIA_ID = C.CATEGORIA_ID 
+                                LEFT JOIN PRODUTO_IMAGEM PI ON P.PRODUTO_ID = PI.PRODUTO_ID
+                                WHERE P.PRODUTO_NOME LIKE '%$search%'");
+
+        $query->execute();
+        $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (empty($produtos)) {
+            // Redireciona com erro
+            header("Location:./ler_admin.php?empty=$search");
+            exit();
+        }
+    } catch (PDOException $e) {
+        echo "Erro: " . $e->getMessage();
+    }
+    // Realizando pesquisa geral
+} else {
+    try {
+        $query = $pdo->prepare("SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_NOME, PI.IMAGEM_URL
+                               FROM PRODUTO P
+                               JOIN CATEGORIA C ON P.CATEGORIA_ID = C.CATEGORIA_ID 
+                               LEFT JOIN PRODUTO_IMAGEM PI ON P.PRODUTO_ID = PI.PRODUTO_ID");
+        $query->execute();
+        $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Erro: " . $e->getMessage();
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,59 +72,89 @@ $botao = "Editar";
                             <th scope="col">Descrição</th>
                             <th scope="col">Preço</th>
                             <th scope="col">Desconto</th>
-                            <th scope="col">Estoque</th>
                             <th scope="col">Categoria</th>
                             <th scope="col">Ativo</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
                         </tr>
                     <tbody>
-                        <tr class="border-bottom linhaTabela">
-                            <td><?= $prodId ?></td>
-                            <td><img src="<?= $prodImagem ?>" alt="descrição_generica.php" width="150"></td>
-                            <td><?= $prodNome ?></td>
-                            <td class="text-truncate"><?= $prodDesc ?></td>
-                            <td>R$ <?= $prodValor ?></td>
-                            <td><?= $prodDesconto ?>%</td>
-                            <td><?= $prodEstoque ?>x</td>
-                            <td>Camiseta</td>
-                            <td>Sim</td>
-                            <td>
-                                <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-pencil-square"></i></a>
-                                <!-- Modal Edit-->
-                                <div class="modal fade " id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog ">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="editModalLabel">Tem certeza que quer editar o produto?</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <?php include "../templates/form_produto.php" ?>
+                        <?php
+                        foreach ($produtos as $produto) :
+                        ?>
+                            <tr class="border-bottom linhaTabela">
+                                <td><?= $produto['PRODUTO_ID'] ?></td>
+                                <td>
+                                    <?php
+                                    if ($produto['IMAGEM_URL']) {
+                                    ?>
+                                        <img src="<?= $produto['IMAGEM_URL'] ?>" alt="Imagem do produto" width="150">
+                                    <?php } else { ?>
+                                        Não possui imagem
+                                    <?php } ?>
+                                </td>
+                                <td><?= $produto['PRODUTO_NOME'] ?></td>
+                                <td class="text-truncate"><?= $produto['PRODUTO_DESC'] ?></td>
+                                <td>R$<?= $produto['PRODUTO_PRECO'] ?></td>
+                                <td>R$<?= $produto['PRODUTO_DESCONTO'] ?></td>
+                                <td><?= $produto['CATEGORIA_NOME'] ?></td>
+                                <td>
+                                    <?php
+                                    if ($produto['PRODUTO_ATIVO'] == 1) { ?>
+                                        Sim
+                                    <?php } else { ?>
+                                        Não
+                                    <?php } ?>
+                                </td>
+                                <td>
+                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal<?= $produto['PRODUTO_ID'] ?>"><i class="bi bi-pencil-square"></i></a>
+                                    <!-- Modal Edit-->
+                                    <div class="modal fade " id="editModal<?= $produto['PRODUTO_ID'] ?>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog ">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="editModalLabel">Tem certeza que quer editar o produto?</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <?php
+                                                    $prodId = $produto['PRODUTO_ID'];
+                                                    $formPath = "./editar_produtos.php?id=$prodId";
+                                                    $prodNome = $produto['PRODUTO_NOME'];
+                                                    $prodDesc = $produto['PRODUTO_DESC'];
+                                                    $prodValor = $produto['PRODUTO_PRECO'];
+                                                    $prodDesconto = $produto['PRODUTO_DESCONTO'];
+                                                    $prodCategoria = $produto['CATEGORIA_NOME'];
+                                                    $prodImagem = $produto['IMAGEM_URL'];
+                                                    $prodAtivo = $produto['PRODUTO_ATIVO'];
+                                                    include "../templates/form_produto.php"
+                                                    ?>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td>
-                                <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3"></i></a>
-                                <!-- Modal Delete -->
-                                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="deleteModalLabel">Tem certeza que quer deletar o produto?</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <a href="/" type="btn" class="btn bg-danger text-white">Delete</a>
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </td>
+                                <td>
+                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $produto['PRODUTO_ID'] ?>"><i class="bi bi-trash3"></i></a>
+                                    <!-- Modal Delete -->
+                                    <div class="modal fade" id="deleteModal<?= $produto['PRODUTO_ID'] ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="deleteModalLabel">Tem certeza que quer deletar o produto?</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a href="./excluir_produtos.php?id=<?= $produto['PRODUTO_ID'] ?>" type="btn" class="btn bg-danger text-white">Delete</a>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                        <?php
+                        endforeach;
+                        ?>
                     </tbody>
                     </thead>
                 </table>
