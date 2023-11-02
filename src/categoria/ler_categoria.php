@@ -75,7 +75,6 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                         </tr>
                     <tbody>
                         <?php
-                        $counter = 0;
                         foreach ($categorias as $categoria) :
                         ?>
                             <tr class="border-bottom linhaTabela">
@@ -92,9 +91,9 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                 </td>
 
                                 <td>
-                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal<?= $counter ?>"><i class="bi bi-pencil-square"></i></a>
+                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal<?= $categoria['CATEGORIA_ID'] ?>"><i class="bi bi-pencil-square"></i></a>
                                     <!-- Modal Edit-->
-                                    <div class="modal fade " id="editModal<?= $counter ?>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                    <div class="modal fade " id="editModal<?= $categoria['CATEGORIA_ID'] ?>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog ">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -116,9 +115,9 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                     </div>
                                 </td>
                                 <td>
-                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $counter ?>"><i class="bi bi-trash3"></i></a>
+                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $categoria['CATEGORIA_ID'] ?>"><i class="bi bi-trash3"></i></a>
                                     <!-- Modal Delete -->
-                                    <div class="modal fade" id="deleteModal<?= $counter ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="deleteModal<?= $categoria['CATEGORIA_ID'] ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -135,7 +134,6 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                 </td>
                             </tr>
                         <?php
-                            $counter++;
                         endforeach;
                         ?>
                     </tbody>
