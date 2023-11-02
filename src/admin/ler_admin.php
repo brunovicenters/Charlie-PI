@@ -12,7 +12,7 @@ $linkAdd = "./criar_admin.php";
 $redirect = "ler_admin.php";
 $name = "Fulano Justinho";
 $admLogId = 2; //session varible that has adm logged in id as value
-$botao = "Criar";
+$botao = "Editar";
 
 require_once "../../conexao/conexao.php";
 
