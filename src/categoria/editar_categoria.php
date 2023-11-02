@@ -22,10 +22,11 @@ if (isset($_GET['id'])) {
             $desc = isset($_POST['desc']) ? htmlspecialchars($_POST["desc"]) : '';
             $ativo = isset($_POST['ativo']) ? filter_input(INPUT_POST, 'ativo', FILTER_SANITIZE_NUMBER_INT) : '';
 
-            $query = $pdo->prepare('UPDATE CATEGORIA SET CATEGORIA_NOME = :nome, CATEGORIA_DESC = :desc CATEGORIA_ATIVO = :ativo');
+            $query = $pdo->prepare('UPDATE CATEGORIA SET CATEGORIA_NOME = :nome, CATEGORIA_DESC = :desc, CATEGORIA_ATIVO = :ativo WHERE CATEGORIA_ID = :id');
             $query->bindParam('nome', $nome, PDO::PARAM_STR);
             $query->bindParam('desc', $desc, PDO::PARAM_STR);
             $query->bindParam('ativo', $ativo, PDO::PARAM_INT);
+            $query->bindParam('id', $id, PDO::PARAM_INT);
             $query->execute();
 
             header('Location:./ler_categoria.php');
