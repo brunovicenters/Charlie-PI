@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+// if (!isset($_SESSION["admin_logado"])) {
+//     header("Location:../login/login.php");
+//     exit();
+// }
+
 // Definindo variáveis para os imports
 $pagNome = "Gerenciar Categoria";
 $addButton = "Adicionar Categoria";
@@ -9,10 +14,6 @@ $redirect = "ler_categoria.php";
 $name = "Fulano Justinho";
 $botao = "Editar";
 
-// if (!isset($_SESSION["admin_logado"])) {
-//     header("Location:../login/login.php");
-//     exit();
-// }
 
 // Conexão com o Banco de Dados
 require_once "../../conexao/conexao.php";
@@ -103,7 +104,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                                 <div class="modal-body">
                                                     <?php
                                                     $catId = $categoria['CATEGORIA_ID'];
-                                                    $formPath = "./editar_categoria.php?$catId";
+                                                    $formPath = "./editar_categoria.php?id=$catId";
                                                     $catNome = $categoria['CATEGORIA_NOME'];
                                                     $catAtivo = $categoria['CATEGORIA_ATIVO'];
                                                     $catDesc = $categoria['CATEGORIA_DESC'];
