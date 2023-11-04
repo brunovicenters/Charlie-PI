@@ -23,7 +23,8 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                 FROM PRODUTO P
                                 JOIN CATEGORIA C ON P.CATEGORIA_ID = C.CATEGORIA_ID 
                                 LEFT JOIN PRODUTO_IMAGEM PI ON P.PRODUTO_ID = PI.PRODUTO_ID
-                                WHERE P.PRODUTO_NOME LIKE '%$search%'");
+                                WHERE P.PRODUTO_NOME LIKE '%$search%'
+                                ORDER BY P.PRODUTO_ID, PI.IMAGEM_ORDEM");
 
         $query->execute();
         $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -41,7 +42,8 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
         $query = $pdo->prepare("SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_NOME, PI.IMAGEM_URL
                                FROM PRODUTO P
                                JOIN CATEGORIA C ON P.CATEGORIA_ID = C.CATEGORIA_ID 
-                               LEFT JOIN PRODUTO_IMAGEM PI ON P.PRODUTO_ID = PI.PRODUTO_ID");
+                               LEFT JOIN PRODUTO_IMAGEM PI ON P.PRODUTO_ID = PI.PRODUTO_ID
+                               ORDER BY P.PRODUTO_ID, PI.IMAGEM_ORDEM");
         $query->execute();
         $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {

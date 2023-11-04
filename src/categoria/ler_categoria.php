@@ -23,7 +23,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     try {
         $search = $_POST['search'];
 
-        $query = $pdo->prepare("SELECT CATEGORIA_ID, CATEGORIA_NOME, CATEGORIA_DESC, CATEGORIA_ATIVO from CATEGORIA where CATEGORIA_NOME like '%$search%'");
+        $query = $pdo->prepare("SELECT CATEGORIA_ID, CATEGORIA_NOME, CATEGORIA_DESC, CATEGORIA_ATIVO from CATEGORIA where CATEGORIA_NOME like '%$search%' ORDER BY CATEGORIA_ID");
 
         $query->execute();
 
@@ -39,7 +39,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     // Realizando pesquisa geral
 } else {
     try {
-        $query = $pdo->prepare("SELECT CATEGORIA_ID, CATEGORIA_NOME, CATEGORIA_DESC, CATEGORIA_ATIVO from CATEGORIA");
+        $query = $pdo->prepare("SELECT CATEGORIA_ID, CATEGORIA_NOME, CATEGORIA_DESC, CATEGORIA_ATIVO from CATEGORIA ORDER BY CATEGORIA_ID");
 
         $query->execute();
 
