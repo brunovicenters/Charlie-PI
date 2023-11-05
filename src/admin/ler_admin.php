@@ -6,6 +6,11 @@ if (!isset($_SESSION["admin_login"])) {
     exit();
 }
 
+$pagNome = "Gerenciar Administrador";
+$addButton = "Adicionar Administrador";
+$linkAdd = "./criar_admin.php";
+$redirect = "ler_admin.php";
+
 require_once "../../conexao/conexao.php";
 
 if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
