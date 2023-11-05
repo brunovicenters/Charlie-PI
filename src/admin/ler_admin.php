@@ -116,15 +116,15 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                                                 <?php
                                                                 if ($admin['ADM_ATIVO'] == 1) {
                                                                 ?>
-                                                                    <input type="checkbox" class="btn-check" id="ativo" autocomplete="off" name="ativo" checked>
+                                                                    <input type="checkbox" class="btn-check" id="ativo<?= $admin['ADM_ID'] ?>" autocomplete="off" name="ativo" checked>
                                                                 <?php
                                                                 } else {
                                                                 ?>
-                                                                    <input type="checkbox" class="btn-check" id="ativo" autocomplete="off" name="ativo">
+                                                                    <input type="checkbox" class="btn-check" id="ativo<?= $admin['ADM_ID'] ?>" autocomplete="off" name="ativo">
                                                                 <?php
                                                                 }
                                                                 ?>
-                                                                <label class="btn btn-outline-dark" for="ativo">Ativo</label>
+                                                                <label class="btn btn-outline-dark" for="ativo<?= $admin['ADM_ID'] ?>">Ativo</label>
                                                             </div>
                                                             <label class="form-label col-md-12" for="imagem">URL Imagem:</label>
                                                             <input class="form-control col-md-12 mt-2 mb-3" type="url" name="imagem" id="imagem" required value="<?= $admin['ADM_IMAGEM'] ?>">
