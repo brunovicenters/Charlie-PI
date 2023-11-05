@@ -19,7 +19,7 @@ try {
     $stmt_categoria->execute();
     $categorias = $stmt_categoria->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    echo "<p style='color:red;'>Erro ao buscar categorias: " . $e->getMessage() . "</p>";
+    echo $e->getMessage();
 }
 
 // Bloco que será executado quando o formulário for submetido.
