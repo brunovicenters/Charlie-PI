@@ -9,7 +9,7 @@ require_once('../../conexao/conexao.php');
 
 // Verifica se o administrador está logado.
 if (!isset($_SESSION['admin_login'])) {
-    header("Location:login.php");
+    header("Location:./../login/login.php");
     exit();
 }
 

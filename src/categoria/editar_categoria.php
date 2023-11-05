@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['admin_login'])) {
-    header("Location:login.php");
+    header("Location:./../login/login.php");
     exit();
 }
 
@@ -20,7 +20,7 @@ if (isset($_GET['id'])) {
         if (!empty($_POST)) {
             $nome = isset($_POST['nome']) ? htmlspecialchars($_POST["nome"]) : '';
             $desc = isset($_POST['desc']) ? htmlspecialchars($_POST["desc"]) : '';
-            $ativo = isset($_POST['ativo']) ? filter_input(INPUT_POST, 'ativo', FILTER_SANITIZE_NUMBER_INT) : '';
+            $ativo = isset($_POST['ativo']) ? 1 : 0;
 
             $query = $pdo->prepare('UPDATE CATEGORIA SET CATEGORIA_NOME = :nome, CATEGORIA_DESC = :desc, CATEGORIA_ATIVO = :ativo WHERE CATEGORIA_ID = :id');
             $query->bindParam('nome', $nome, PDO::PARAM_STR);
