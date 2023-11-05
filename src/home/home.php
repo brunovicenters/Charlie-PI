@@ -1,6 +1,22 @@
 <?php
-$name = "Fulano Justinho";
-$pagNome = "Bem-vindo ao Charlie, $name";
+session_start();
+
+// if (!isset($_SESSION["admin_logado"])) {
+//     header("Location:../login/login.php");
+//     exit();
+// }
+
+// Conexão com o Banco de Dados
+require_once "../../conexao/conexao.php";
+
+$pagNome = "Bem-vindo ao Charlie, ".$_SESSION["admin_nome"];
+$query = $pdo->prepare("SELECT P.PRODUTO_NOME, P.PRODUTO_DESC, PI.IMAGEM_URL
+                        FROM PRODUTO P LEFT JOIN PRODUTO_IMAGEM PI
+                        ON P.PRODUTO_ID = PI.PRODUTO_ID
+                        ORDER BY P.PRODUTO_ID DESC LIMIT 3");
+$query->execute();
+$produtos=$query->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -38,34 +54,21 @@ $pagNome = "Bem-vindo ao Charlie, $name";
     <h2 class="h2 text-center">Últimos Produtos</h2>
     <div class="d-flex justify-content-evenly">
       <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+        <?php
+        foreach ($produtos as $produto):
+        ?>
         <div class="col">
           <div class="card h-100">
-            <img src="./../assets/image/carrossel.jpg" class="card-img-top" alt="...">
+            <img src="<?=$produto['IMAGEM_URL']?>" class="card-img-top" alt="Imagem do produto">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <h5 class="card-title"><?=$produto['PRODUTO_NOME']?></h5>
+              <p class="card-text"><?=$produto['PRODUTO_DESC']?></p>
             </div>
           </div>
         </div>
-        <div class="col">
-          <div class="card h-100">
-            <img src="./../assets/image/carrossel.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card h-100">
-            <img src="./../assets/image/carrossel.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+       <?php
+       endforeach;
+       ?>
     </div>
 
   </div>

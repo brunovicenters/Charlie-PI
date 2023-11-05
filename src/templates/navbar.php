@@ -8,7 +8,7 @@
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
         <img src="../assets/image/fotoAdm.png" alt="" class="fotoAdm">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><?= $name ?></h5>
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><?= $_SESSION["admin_nome"] ?></h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
