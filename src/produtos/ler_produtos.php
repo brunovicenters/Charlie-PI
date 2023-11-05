@@ -26,7 +26,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     try {
         $search = $_POST['search'];
 
-        $query = $pdo->prepare("SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_ID, C.CATEGORIA_NOME, PI.IMAGEM_URL
+        $query = $pdo->prepare("SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_ID, C.CATEGORIA_NOME, PI.IMAGEM_ID, PI.IMAGEM_URL
                                 FROM PRODUTO P
                                 JOIN CATEGORIA C ON P.CATEGORIA_ID = C.CATEGORIA_ID 
                                 LEFT JOIN PRODUTO_IMAGEM PI ON P.PRODUTO_ID = PI.PRODUTO_ID
@@ -46,7 +46,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     // Realizando pesquisa geral
 } else {
     try {
-        $query = $pdo->prepare("SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_ID, C.CATEGORIA_NOME, PI.IMAGEM_URL
+        $query = $pdo->prepare("SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_ID, C.CATEGORIA_NOME, PI.IMAGEM_ID, PI.IMAGEM_URL
                                FROM PRODUTO P
                                JOIN CATEGORIA C ON P.CATEGORIA_ID = C.CATEGORIA_ID 
                                LEFT JOIN PRODUTO_IMAGEM PI ON P.PRODUTO_ID = PI.PRODUTO_ID
@@ -115,9 +115,9 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                     <?php } ?>
                                 </td>
                                 <td>
-                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal<?= $produto['PRODUTO_ID'] ?>"><i class="bi bi-pencil-square"></i></a>
+                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal<?= $produto['IMAGEM_ID'] ?>"><i class="bi bi-pencil-square"></i></a>
                                     <!-- Modal Edit-->
-                                    <div class="modal fade " id="editModal<?= $produto['PRODUTO_ID'] ?>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                    <div class="modal fade " id="editModal<?= $produto['IMAGEM_ID'] ?>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog ">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -146,10 +146,8 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                                             <?php }
                                                             endforeach; ?>
                                                         </select>
-                                                        <div id="containerImagens">
-                                                            <label class="form-label col-md-12" for="imagem">URL Imagem:</label>
-                                                            <input class="form-control col-md-12 mt-2 mb-3" type="url" name="imagem" id="imagem" required value="<?= $produto['IMAGEM_URL'] ?>">
-                                                        </div>
+                                                        <label class="form-label col-md-12" for="imagem">URL Imagem:</label>
+                                                        <input class="form-control col-md-12 mt-2 mb-3" type="url" name="imagem[<?= $produto['IMAGEM_ID'] ?>]" id="imagem" required value="<?= $produto['IMAGEM_URL'] ?>">
                                                         <div class="btn-group mb-2" role="group" aria-label="Basic checkbox toggle button group">
                                                             <?php
                                                             if ($produto['PRODUTO_ATIVO'] == 1) { ?>
