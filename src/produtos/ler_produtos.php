@@ -10,7 +10,6 @@ $pagNome = "Gerenciar produtos";
 $addButton = "Adicionar produto";
 $linkAdd = "./criar_produtos.php";
 $redirect = "ler_produtos.php";
-$name = "Fulano Justinho";
 $botao = "Editar";
 
 require_once "../../conexao/conexao.php";

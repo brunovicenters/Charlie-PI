@@ -1,6 +1,5 @@
 <?php
 $pagNome = "Criar Adiministrador";
-$name = "Fulano Justinho";
 
 // Inicia a sessão para gerenciamento do usuário.
 session_start();

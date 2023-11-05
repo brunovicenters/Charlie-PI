@@ -1,6 +1,5 @@
 <?php
 $pagNome = "Criar Categoria";
-$name = "Fulano Justinho";
 
 // Inicia a sessão para gerenciamento do usuário.
 session_start();
@@ -14,13 +13,13 @@ require_once('../../conexao/conexao.php');
 //    exit();
 //}
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $nome = htmlspecialchars($_POST['nome']) ; 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nome = htmlspecialchars($_POST['nome']);
     $descr = htmlspecialchars($_POST['desc']);
     $ativo = isset($_POST['ativo']) ? 1 : 0;
 
     try {
-        $sql= "INSERT INTO CATEGORIA (CATEGORIA_NOME, CATEGORIA_DESC, CATEGORIA_ATIVO) VALUES (:nome , :desc, :ativo)";
+        $sql = "INSERT INTO CATEGORIA (CATEGORIA_NOME, CATEGORIA_DESC, CATEGORIA_ATIVO) VALUES (:nome , :desc, :ativo)";
         $query = $pdo->prepare($sql);
         $query->bindParam(':nome', $nome, PDO::PARAM_STR);
         $query->bindParam(':desc', $descr, PDO::PARAM_STR);
@@ -28,9 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $query->execute();
         header("Location:./ler_categoria.php");
         exit();
-    } catch (PDOException $e){
+    } catch (PDOException $e) {
         echo $e->getMessage();
-    } 
+    }
 }
 ?>
 <!DOCTYPE html>

@@ -11,7 +11,6 @@ $pagNome = "Gerenciar Categoria";
 $addButton = "Adicionar Categoria";
 $linkAdd = "./criar_categoria.php";
 $redirect = "ler_categoria.php";
-$name = "Fulano Justinho";
 $botao = "Editar";
 
 

@@ -1,6 +1,5 @@
 <?php
 $pagNome = "Criar Produto";
-$name = "Fulano Justinho";
 
 // Inicia a sessão para gerenciamento do usuário.
 session_start();
@@ -26,12 +25,12 @@ try {
 // Bloco que será executado quando o formulário for submetido.
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Pegando os valores do POST.
-    $nome = htmlspecialchars($_POST['nome']) ; 
+    $nome = htmlspecialchars($_POST['nome']);
     $descr = htmlspecialchars($_POST['desc']);
-    $preco = filter_input(INPUT_POST,'preco', FILTER_SANITIZE_NUMBER_INT);
-    $categoria_id = filter_input(INPUT_POST,'categoria_id', FILTER_SANITIZE_NUMBER_INT);
+    $preco = filter_input(INPUT_POST, 'preco', FILTER_SANITIZE_NUMBER_INT);
+    $categoria_id = filter_input(INPUT_POST, 'categoria_id', FILTER_SANITIZE_NUMBER_INT);
     $ativo = isset($_POST['ativo']) ? 1 : 0;
-    $desconto = filter_input(INPUT_POST,'desconto', FILTER_SANITIZE_NUMBER_INT);
+    $desconto = filter_input(INPUT_POST, 'desconto', FILTER_SANITIZE_NUMBER_INT);
     $imagens = $_POST['imagem'];
 
     // Inserindo produto no banco.
@@ -60,8 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         header("Location:./ler_produtos.php");
-    // Stops the code --
-    exit();
+        // Stops the code --
+        exit();
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
@@ -99,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <?php endforeach ?>
                         </select>
                         <div id="containerImagens">
-                            <label class="form-label col-md-12" for="imagem" >URL Imagem:</label>
+                            <label class="form-label col-md-12" for="imagem">URL Imagem:</label>
                             <input class="form-control col-md-12 mt-2 mb-3" type="url" name="imagem[]" id="imagem" required>
                         </div>
                         <div class="col-md-12 d-flex justify-content-end">
@@ -123,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         function adicionarImagem() {
             const containerImagens = document.getElementById('containerImagens');
             const novoInput = document.createElement('input');
-            novoInput.classList.add('form-control', 'col-md-12', 'mt-2', 'mb-3'); 
+            novoInput.classList.add('form-control', 'col-md-12', 'mt-2', 'mb-3');
             novoInput.type = 'text';
             novoInput.name = 'imagem[]';
             containerImagens.appendChild(novoInput);
