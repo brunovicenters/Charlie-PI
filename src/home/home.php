@@ -34,10 +34,10 @@ $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="./../assets/image/carrossel.jpg" class="d-block w-100" alt="..." height="500px">
+        <img src="./../assets/image/carrosselRoupas.jpg" class="d-block w-100" alt="Algumas roupas penduradas em um cabide" height="500px">
       </div>
       <div class="carousel-item">
-        <img src="./../assets/image/carrossel.jpg" class="d-block w-100" alt="..." height="500px">
+        <img src="./../assets/image/carrosselDesenho.jpg" class="d-block w-100" alt="Imagens de desenho de roupa" height="500px">
       </div>
 
     </div>
