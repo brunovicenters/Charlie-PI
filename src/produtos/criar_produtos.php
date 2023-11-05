@@ -15,7 +15,7 @@ if (!isset($_SESSION['admin_login'])) {
 
 // Bloco de consulta para buscar categorias.
 try {
-    $stmt_categoria = $pdo->prepare("SELECT * FROM CATEGORIA");
+    $stmt_categoria = $pdo->prepare("SELECT CATEGORIA_ID, CATEGORIA_NOME FROM CATEGORIA");
     $stmt_categoria->execute();
     $categorias = $stmt_categoria->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <button type="button" class="btn btn-outline-link " onclick="adicionarImagem()"><i class="bi bi-plus-square"></i></button>
                         </div>
                         <div class="btn-group mb-2" role="group" aria-label="Basic checkbox toggle button group">
-                            <input type="checkbox" class="btn-check" id="ativo" autocomplete="off" name="ativo">
+                            <input type="checkbox" class="btn-check" id="ativo" autocomplete="off" name="ativo" checked>
                             <label class="btn btn-outline-dark" for="ativo">Ativo</label>
                         </div>
                         <div class="col-md-12 text-end">
