@@ -173,11 +173,11 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="deleteModalLabel">Tem certeza que quer deletar o produto?</h1>
+                                                    <h1 class="modal-title fs-5" id="deleteModalLabel">A deleção de produtos está indisponível no momento.</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a href="./excluir_produtos.php?id=<?= $produto['PRODUTO_ID'] ?>" type="btn" class="btn bg-danger text-white">Delete</a>
+                                                    <!-- <a href="./excluir_produtos.php?id=< ?= $produto['PRODUTO_ID'] ?>" type="btn" class="btn bg-danger text-white">Delete</a> -->
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
