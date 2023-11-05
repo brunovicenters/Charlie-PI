@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label class="form-label col-md-12 mb-2" for="desc">Descrição:</label>
                     <textarea class="form-control col-md-12 mt-2 mb-3" name="desc" id="desc" cols="30" rows="5" required></textarea>
                     <div class="btn-group mb-2" role="group" aria-label="Basic checkbox toggle button group">
-                        <input type="checkbox" class="btn-check" id="ativo" autocomplete="off" name="ativo">
+                        <input type="checkbox" class="btn-check" id="ativo" autocomplete="off" name="ativo" checked>
                         <label class="btn btn-outline-dark" for="ativo">Ativo</label>
                     </div>
                     <div class="col-md-12 text-end">

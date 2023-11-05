@@ -56,12 +56,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <input class="form-control col-md-12 mt-2 mb-3" type="text" name="email" id="email" step="0.01" required>
                     <label class="form-1label col-md-12" for="senha">Senha:</label>
                     <input class="form-control col-md-12 mt-2 mb-3" type="password" name="senha" id="senha" step="0.01" required>
-                    <div class="btn-group mb-2" role="group" aria-label="Basic checkbox toggle button group">
-                        <input type="checkbox" class="btn-check" id="ativo" autocomplete="off" name="ativo">
-                        <label class="btn btn-outline-dark" for="ativo">Ativo</label>
-                    </div>
                     <label class="form-label col-md-12" for="imagem">URL Imagem:</label>
                     <input class="form-control col-md-12 mt-2 mb-3" type="url" name="imagem" id="imagem" required>
+                    <div class="btn-group mb-2" role="group" aria-label="Basic checkbox toggle button group">
+                        <input type="checkbox" class="btn-check" id="ativo" autocomplete="off" name="ativo" checked>
+                        <label class="btn btn-outline-dark" for="ativo">Ativo</label>
+                    </div>
                     <div class="col-md-12 text-end">
                         <button type="submit" class="btn btn-secondary">Criar</button>
                     </div>
