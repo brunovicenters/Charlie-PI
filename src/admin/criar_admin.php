@@ -14,15 +14,15 @@ require_once('../../conexao/conexao.php');
 //    exit();
 //}
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $nome = htmlspecialchars($_POST['nome']) ; 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nome = htmlspecialchars($_POST['nome']);
     $email = htmlspecialchars($_POST['email']);
     $descr = htmlspecialchars($_POST['senha']);
     $ativo = isset($_POST['ativo']) ? 1 : 0;
     $imagem = isset($_POST['imagem']) ? filter_input(INPUT_POST, 'imagem', FILTER_SANITIZE_URL) : '';
 
     try {
-        $sql= "INSERT INTO ADMINISTRADOR (ADM_NOME, ADM_EMAIL, ADM_SENHA, ADM_ATIVO, ADM_IMAGEM) VALUES (:nome , :email, :senha, :ativo, :imagem)";
+        $sql = "INSERT INTO ADMINISTRADOR (ADM_NOME, ADM_EMAIL, ADM_SENHA, ADM_ATIVO, ADM_IMAGEM) VALUES (:nome , :email, :senha, :ativo, :imagem)";
         $query = $pdo->prepare($sql);
         $query->bindParam(':nome', $nome, PDO::PARAM_STR);
         $query->bindParam(':email', $email, PDO::PARAM_STR);
@@ -32,9 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $query->execute();
         header("Location:./ler_admin.php");
         exit();
-    } catch (PDOException $e){
+    } catch (PDOException $e) {
         echo $e->getMessage();
-    } 
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 <body>
     <?php include "../templates/navbar.php" ?>
     <div class="">
-        <a href="ler_produtos.php"><button type="button" class="btn bg-danger text-white ms-3 mt-2"><i class="bi bi-caret-left-fill"></i></button></a>
+        <a href="./ler_admin.php"><button type="button" class="btn bg-danger text-white ms-3 mt-2"><i class="bi bi-caret-left-fill"></i></button></a>
     </div>
     <div class="d-flex justify-content-center align-items-center mt-5">
         <div class="card formCriar">
