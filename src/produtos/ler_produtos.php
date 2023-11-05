@@ -88,7 +88,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                     <?php
                                     if ($produto['IMAGEM_URL']) {
                                     ?>
-                                        <img src="<?= $produto['IMAGEM_URL'] ?>" alt="Imagem do produto" width="150">
+                                        <img src="<?= $produto['IMAGEM_URL'] ?>" alt="Imagem do produto" class="imgPerfil">
                                     <?php } else { ?>
                                         Não possui imagem
                                     <?php } ?>
