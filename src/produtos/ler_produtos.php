@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-// if (!isset($_SESSION["admin_logado"])) {
-//     header("Location:../login/login.php");
-//     exit();
-// }
+if (!isset($_SESSION['admin_login'])) {
+    header("Location:login.php");
+    exit();
+}
 
 $pagNome = "Gerenciar produtos";
 $addButton = "Adicionar produto";

@@ -8,10 +8,10 @@ session_start();
 require_once('../../conexao/conexao.php');
 
 // Verifica se o administrador está logado.
-//if (!isset($_SESSION['admin_logado'])) {
-//    header("Location:login.php");
-//    exit();
-//}
+if (!isset($_SESSION['admin_login'])) {
+    header("Location:login.php");
+    exit();
+}
 
 // Bloco de consulta para buscar categorias.
 try {
