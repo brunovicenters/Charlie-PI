@@ -34,8 +34,8 @@ if (isset($_GET['id'])) {
 
             $nome = isset($_POST['nome']) ? htmlspecialchars($_POST["nome"]) : '';
             $desc = isset($_POST['desc']) ? htmlspecialchars($_POST["desc"]) : '';
-            $preco = isset($_POST['preco']) ? filter_input(INPUT_POST, 'preco', FILTER_SANITIZE_NUMBER_FLOAT) : '';
-            $desconto = isset($_POST['desconto']) ? filter_input(INPUT_POST, 'desconto', FILTER_SANITIZE_NUMBER_FLOAT) : '';
+            $preco = isset($_POST['preco']) ? htmlspecialchars($_POST['preco']) : '';
+            $desconto = isset($_POST['desconto']) ? htmlspecialchars($_POST['desconto']) : '';
             $categoria = isset($_POST['categoria_id']) ? filter_input(INPUT_POST, 'categoria_id', FILTER_SANITIZE_NUMBER_INT) : '';
             $ativo = isset($_POST['ativo']) ? 1 : 0;
 

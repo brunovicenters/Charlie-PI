@@ -27,10 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Pegando os valores do POST.
     $nome = htmlspecialchars($_POST['nome']);
     $descr = htmlspecialchars($_POST['desc']);
-    $preco = filter_input(INPUT_POST, 'preco', FILTER_SANITIZE_NUMBER_FLOAT);
+    $preco = htmlspecialchars($_POST['preco']);
     $categoria_id = filter_input(INPUT_POST, 'categoria_id', FILTER_SANITIZE_NUMBER_INT);
     $ativo = isset($_POST['ativo']) ? 1 : 0;
-    $desconto = filter_input(INPUT_POST, 'desconto', FILTER_SANITIZE_NUMBER_FLOAT);
+    $desconto = htmlspecialchars($_POST['desconto']);
     $imagens = $_POST['imagem'];
 
     // Inserindo produto no banco.
