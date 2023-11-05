@@ -26,25 +26,25 @@ try {
 // Bloco que será executado quando o formulário for submetido.
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Pegando os valores do POST.
-    $nome = $_POST['nome'];
-    $descr = $_POST['desc'];
-    $preco = $_POST['preco'];
-    $categoria_id = $_POST['categoria_id'];
+    $nome = htmlspecialchars($_POST['nome']) ; 
+    $descr = htmlspecialchars($_POST['desc']);
+    $preco = filter_input(INPUT_POST,'preco', FILTER_SANITIZE_NUMBER_INT);
+    $categoria_id = filter_input(INPUT_POST,'categoria_id', FILTER_SANITIZE_NUMBER_INT);
     $ativo = isset($_POST['ativo']) ? 1 : 0;
-    $desconto = $_POST['desconto'];
+    $desconto = filter_input(INPUT_POST,'desconto', FILTER_SANITIZE_NUMBER_INT);
     $imagens = $_POST['imagem'];
 
     // Inserindo produto no banco.
     try {
         $sql = "INSERT INTO PRODUTO (PRODUTO_NOME, PRODUTO_DESC, PRODUTO_PRECO, CATEGORIA_ID, PRODUTO_ATIVO, PRODUTO_DESCONTO) VALUES (:nome, :desc, :preco, :categoria_id, :ativo, :desconto)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam('nome', $nome, PDO::PARAM_STR);
-        $stmt->bindParam('desc', $descr, PDO::PARAM_STR);
-        $stmt->bindParam('preco', $preco, PDO::PARAM_STR);
-        $stmt->bindParam('categoria_id', $categoria_id, PDO::PARAM_INT);
-        $stmt->bindParam('ativo', $ativo, PDO::PARAM_INT);
-        $stmt->bindParam('desconto', $desconto, PDO::PARAM_STR);
-        $stmt->execute();
+        $query = $pdo->prepare($sql);
+        $query->bindParam('nome', $nome, PDO::PARAM_STR);
+        $query->bindParam('desc', $descr, PDO::PARAM_STR);
+        $query->bindParam('preco', $preco, PDO::PARAM_STR);
+        $query->bindParam('categoria_id', $categoria_id, PDO::PARAM_INT);
+        $query->bindParam('ativo', $ativo, PDO::PARAM_INT);
+        $query->bindParam('desconto', $desconto, PDO::PARAM_STR);
+        $query->execute();
 
         // Pegando o ID do produto inserido.
         $produto_id = $pdo->lastInsertId();
@@ -52,18 +52,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Inserindo imagens no banco.
         foreach ($imagens as $ordem => $url_imagem) {
             $sql_imagem = "INSERT INTO PRODUTO_IMAGEM (IMAGEM_URL, PRODUTO_ID, IMAGEM_ORDEM) VALUES (:url_imagem, :produto_id, :ordem_imagem)";
-            $stmt_imagem = $pdo->prepare($sql_imagem);
-            $stmt_imagem->bindParam(':url_imagem', $url_imagem, PDO::PARAM_STR);
-            $stmt_imagem->bindParam(':produto_id', $produto_id, PDO::PARAM_INT);
-            $stmt_imagem->bindParam(':ordem_imagem', $ordem, PDO::PARAM_INT);
-            $stmt_imagem->execute();
+            $query_imagem = $pdo->prepare($sql_imagem);
+            $query_imagem->bindParam(':url_imagem', $url_imagem, PDO::PARAM_STR);
+            $query_imagem->bindParam(':produto_id', $produto_id, PDO::PARAM_INT);
+            $query_imagem->bindParam(':ordem_imagem', $ordem, PDO::PARAM_INT);
+            $query_imagem->execute();
         }
 
         header("Location:./ler_produtos.php");
     // Stops the code --
     exit();
     } catch (PDOException $e) {
-        echo "<p style='color:red;'>Erro ao cadastrar produto: " . $e->getMessage() . "</p>";
+        echo $e->getMessage();
     }
 }
 ?>
@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <button type="button" class="btn btn-outline-link " onclick="adicionarImagem()"><i class="bi bi-plus-square"></i></button>
                         </div>
                         <div class="btn-group mb-2" role="group" aria-label="Basic checkbox toggle button group">
-                            <input type="checkbox" class="btn-check" id="ativo" autocomplete="off">
+                            <input type="checkbox" class="btn-check" id="ativo" autocomplete="off" name="ativo">
                             <label class="btn btn-outline-dark" for="ativo">Ativo</label>
                         </div>
                         <div class="col-md-12 text-end">
@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             const novoInput = document.createElement('input');
             novoInput.classList.add('form-control', 'col-md-12', 'mt-2', 'mb-3'); 
             novoInput.type = 'text';
-            novoInput.name = 'imagem_url[]';
+            novoInput.name = 'imagem[]';
             containerImagens.appendChild(novoInput);
         }
     </script>
