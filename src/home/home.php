@@ -9,8 +9,7 @@ session_start();
 // Conexão com o Banco de Dados
 require_once "../../conexao/conexao.php";
 
-$name = "Fulano Justinho";
-$pagNome = "Bem-vindo ao Charlie, $name";
+$pagNome = "Bem-vindo ao Charlie, ".$_SESSION["admin_nome"];
 $query = $pdo->prepare("SELECT P.PRODUTO_NOME, P.PRODUTO_DESC, PI.IMAGEM_URL
                         FROM PRODUTO P LEFT JOIN PRODUTO_IMAGEM PI
                         ON P.PRODUTO_ID = PI.PRODUTO_ID
