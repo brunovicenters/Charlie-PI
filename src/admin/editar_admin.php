@@ -9,7 +9,7 @@ session_start();
 // Conexão com o Banco de Dados
 require_once "../../conexao/conexao.php";
 
-if (isset($_GET['id'])) {
+if (isset($_GET['id']) && $_SESSION['admin_id'] == $_GET['id']) {
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
     $query = $pdo->prepare("SELECT * FROM ADMINISTRADOR WHERE ADM_ID = :id");
     $query->bindParam("id", $id, PDO::PARAM_INT);
