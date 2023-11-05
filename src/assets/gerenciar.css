@@ -42,3 +42,9 @@
 .text-truncate {
   max-width: 9rem;
 }
+
+.imgPerfil {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}

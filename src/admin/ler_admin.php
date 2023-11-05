@@ -77,7 +77,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                     <?php
                                     if ($admin['ADM_IMAGEM']) {
                                     ?>
-                                        <img src="<?= $admin['ADM_IMAGEM'] ?>" alt="Admin image" width="150">
+                                        <img src="<?= $admin['ADM_IMAGEM'] ?>" alt="Admin image" class="imgPerfil">
                                     <?php } else { ?>
                                         Não possui imagem
                                     <?php } ?>
