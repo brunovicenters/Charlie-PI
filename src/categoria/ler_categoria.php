@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+// if (!isset($_SESSION["admin_logado"])) {
+//     header("Location:../login/login.php");
+//     exit();
+// }
+
 // Definindo variáveis para os imports
 $pagNome = "Gerenciar Categoria";
 $addButton = "Adicionar Categoria";
@@ -9,10 +14,6 @@ $redirect = "ler_categoria.php";
 $name = "Fulano Justinho";
 $botao = "Editar";
 
-// if (!isset($_SESSION["admin_logado"])) {
-//     header("Location:../login/login.php");
-//     exit();
-// }
 
 // Conexão com o Banco de Dados
 require_once "../../conexao/conexao.php";
@@ -22,7 +23,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     try {
         $search = $_POST['search'];
 
-        $query = $pdo->prepare("SELECT CATEGORIA_ID, CATEGORIA_NOME, CATEGORIA_DESC, CATEGORIA_ATIVO from CATEGORIA where CATEGORIA_NOME like '%$search%'");
+        $query = $pdo->prepare("SELECT CATEGORIA_ID, CATEGORIA_NOME, CATEGORIA_DESC, CATEGORIA_ATIVO from CATEGORIA where CATEGORIA_NOME like '%$search%' ORDER BY CATEGORIA_ID");
 
         $query->execute();
 
@@ -38,7 +39,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     // Realizando pesquisa geral
 } else {
     try {
-        $query = $pdo->prepare("SELECT CATEGORIA_ID, CATEGORIA_NOME, CATEGORIA_DESC, CATEGORIA_ATIVO from CATEGORIA");
+        $query = $pdo->prepare("SELECT CATEGORIA_ID, CATEGORIA_NOME, CATEGORIA_DESC, CATEGORIA_ATIVO from CATEGORIA ORDER BY CATEGORIA_ID");
 
         $query->execute();
 
@@ -74,7 +75,6 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                         </tr>
                     <tbody>
                         <?php
-                        $counter = 0;
                         foreach ($categorias as $categoria) :
                         ?>
                             <tr class="border-bottom linhaTabela">
@@ -91,9 +91,9 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                 </td>
 
                                 <td>
-                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal<?= $counter ?>"><i class="bi bi-pencil-square"></i></a>
+                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal<?= $categoria['CATEGORIA_ID'] ?>"><i class="bi bi-pencil-square"></i></a>
                                     <!-- Modal Edit-->
-                                    <div class="modal fade " id="editModal<?= $counter ?>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                    <div class="modal fade " id="editModal<?= $categoria['CATEGORIA_ID'] ?>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog ">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -103,7 +103,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                                 <div class="modal-body">
                                                     <?php
                                                     $catId = $categoria['CATEGORIA_ID'];
-                                                    $formPath = "./editar_categoria.php?$catId";
+                                                    $formPath = "./editar_categoria.php?id=$catId";
                                                     $catNome = $categoria['CATEGORIA_NOME'];
                                                     $catAtivo = $categoria['CATEGORIA_ATIVO'];
                                                     $catDesc = $categoria['CATEGORIA_DESC'];
@@ -115,17 +115,17 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                     </div>
                                 </td>
                                 <td>
-                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $counter ?>"><i class="bi bi-trash3"></i></a>
+                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $categoria['CATEGORIA_ID'] ?>"><i class="bi bi-trash3"></i></a>
                                     <!-- Modal Delete -->
-                                    <div class="modal fade" id="deleteModal<?= $counter ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="deleteModal<?= $categoria['CATEGORIA_ID'] ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="deleteModalLabel">Tem certeza que quer deletar a categoria?</h1>
+                                                    <h1 class="modal-title fs-5" id="deleteModalLabel">A deleção de categorias está indisponível no momento.</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a href="./excluir_categoria.php?id=<?= $categoria['CATEGORIA_ID'] ?>" type="btn" class="btn bg-danger text-white">Delete</a>
+                                                    <!-- <a href="./excluir_categoria.php?id=< ?=  $categoria['CATEGORIA_ID'] ?>" type="btn" class="btn bg-danger text-white">Delete</a> -->
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
@@ -134,7 +134,6 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                 </td>
                             </tr>
                         <?php
-                            $counter++;
                         endforeach;
                         ?>
                     </tbody>
