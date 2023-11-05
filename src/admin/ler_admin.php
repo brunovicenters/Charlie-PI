@@ -11,7 +11,6 @@ $addButton = "Adicionar Administrador";
 $linkAdd = "./criar_admin.php";
 $redirect = "ler_admin.php";
 $name = "Fulano Justinho";
-$admLogId = 2; //session varible that has adm logged in id as value
 $botao = "Editar";
 
 require_once "../../conexao/conexao.php";
@@ -96,7 +95,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                     <?php } ?>
                                 <td>
                                     <?php
-                                    if ($admLogId == $admin['ADM_ID']) {
+                                    if ($_SESSION['admin_id'] == $admin['ADM_ID']) {
                                     ?>
                                         <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal<?= $admin['ADM_ID'] ?>"><i class="bi bi-pencil-square"></i></a>
                                         <!-- Modal Edit-->
