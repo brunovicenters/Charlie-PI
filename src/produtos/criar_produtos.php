@@ -83,13 +83,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="card-body">
                     <form action="" method="post" class="col-md-12 text-start" enctype="multipart/form-data">
                         <label class="form-label col-md-12" for="nome">Nome:</label>
-                        <input class="form-control col-md-12 mt-2 mb-3" type="text" name="nome" id="nome">
+                        <input class="form-control col-md-12 mt-2 mb-3" type="text" name="nome" id="nome" required>
                         <label class="form-label col-md-12 mb-2" for="desc">Descrição:</label>
                         <textarea class="form-control col-md-12 mt-2 mb-3" name="desc" id="desc" cols="30" rows="5" required></textarea>
                         <label class="form-label col-md-12" for="preco">Preço:</label>
-                        <input class="form-control col-md-12 mt-2 mb-3" type="number" name="preco" id="preco" step="0.01">
+                        <input class="form-control col-md-12 mt-2 mb-3" type="number" name="preco" id="preco" step="0.01" required>
                         <label class="form-label col-md-12" for="desconto">Desconto:</label>
-                        <input class="form-control col-md-12 mt-2 mb-3" type="number" name="desconto" id="desconto" step="0.01">
+                        <input class="form-control col-md-12 mt-2 mb-3" type="number" name="desconto" id="desconto" step="0.01" required>
                         <label class="form-label col-md-12" for="categoria_id">Categoria:</label>
                         <select class="form-select col-md-12 mt-2 mb-3" name="categoria_id" id="categoria_id">
                             <?php
@@ -99,8 +99,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <?php endforeach ?>
                         </select>
                         <div id="containerImagens">
-                            <label class="form-label col-md-12" for="imagem">URL Imagem:</label>
-                            <input class="form-control col-md-12 mt-2 mb-3" type="url" name="imagem[]" id="imagem">
+                            <label class="form-label col-md-12" for="imagem" >URL Imagem:</label>
+                            <input class="form-control col-md-12 mt-2 mb-3" type="url" name="imagem[]" id="imagem" required>
                         </div>
                         <div class="col-md-12 d-flex justify-content-end">
                             <button type="button" class="btn btn-outline-link " onclick="adicionarImagem()"><i class="bi bi-plus-square"></i></button>
