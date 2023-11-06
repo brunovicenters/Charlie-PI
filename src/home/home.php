@@ -10,9 +10,8 @@ if (!isset($_SESSION['admin_login'])) {
 require_once "../../conexao/conexao.php";
 
 $pagNome = "Bem-vindo ao Charlie, " . $_SESSION["admin_nome"];
-$query = $pdo->prepare("SELECT P.PRODUTO_NOME, P.PRODUTO_DESC, PI.IMAGEM_URL
-                        FROM PRODUTO P LEFT JOIN PRODUTO_IMAGEM PI
-                        ON P.PRODUTO_ID = PI.PRODUTO_ID
+$query = $pdo->prepare("SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC
+                        FROM PRODUTO P
                         ORDER BY P.PRODUTO_ID DESC LIMIT 3");
 $query->execute();
 $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -55,11 +54,16 @@ $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
     <div class="d-flex justify-content-evenly">
       <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
         <?php
+        $sql = "SELECT IMAGEM_URL FROM PRODUTO_IMAGEM WHERE PRODUTO_ID = :id";
         foreach ($produtos as $produto) :
+          $query = $pdo->prepare($sql);
+          $query->bindParam("id", $produto["PRODUTO_ID"]);
+          $query->execute();
+          $imagem = $query->fetch(PDO::FETCH_ASSOC);
         ?>
           <div class="col">
             <div class="card h-100">
-              <img src="<?= $produto['IMAGEM_URL'] ?>" class="card-img-top imgHome" alt="Imagem do produto">
+              <img src="<?= $imagem['IMAGEM_URL'] ?>" class="card-img-top imgHome" alt="Imagem do produto">
               <div class="card-body">
                 <h5 class="card-title"><?= $produto['PRODUTO_NOME'] ?></h5>
                 <p class="card-text"><?= $produto['PRODUTO_DESC'] ?></p>
