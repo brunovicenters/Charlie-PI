@@ -53,7 +53,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
 
 <?php include "../templates/head.php" ?>
 
-<body>
+<body id="categoria">
     <?php include "../templates/navbar.php" ?>
     <div class="container">
         <div class="row mx-2">
