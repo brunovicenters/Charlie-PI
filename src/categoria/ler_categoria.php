@@ -52,7 +52,6 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
 <html lang="en">
 
 <?php include "../templates/head.php" ?>
-<link rel="stylesheet" href="../assets/gerenciar.css">
 
 <body>
     <?php include "../templates/navbar.php" ?>
