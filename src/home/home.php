@@ -20,9 +20,11 @@ $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <?php include "../templates/head.php" ?>
 
 <body id="home">
+
   <?php include "../templates/navbar.php" ?>
 
   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
@@ -35,20 +37,23 @@ $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
       <div class="carousel-item active">
         <img src="./../assets/image/carrosselRoupas.jpg" class="d-block w-100" alt="Algumas roupas penduradas em um cabide" height="500px">
       </div>
+
       <div class="carousel-item">
         <img src="./../assets/image/carrosselDesenho.jpg" class="d-block w-100" alt="Imagens de desenho de roupa" height="500px">
       </div>
-
     </div>
+
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
+
     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
   </div>
+
   <div class="container mt-3">
     <h2 class="h2 text-center">Últimos Produtos</h2>
     <div class="d-flex justify-content-evenly">
@@ -74,8 +79,8 @@ $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
         endforeach;
         ?>
       </div>
-
     </div>
+    <script src="./../scripts/truncateText.js"></script>
 </body>
 
 </html>
