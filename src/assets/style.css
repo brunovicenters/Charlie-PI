@@ -37,6 +37,11 @@
   object-fit: cover;
 }
 
+.formCriar {
+  width: 40rem;
+  background: #dee2e6;
+}
+
 #login .card {
   width: 30rem;
   border-radius: 15px;
