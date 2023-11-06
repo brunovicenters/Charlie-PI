@@ -59,7 +59,7 @@ $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
         ?>
           <div class="col">
             <div class="card h-100">
-              <img src="<?= $produto['IMAGEM_URL'] ?>" class="card-img-top" alt="Imagem do produto">
+              <img src="<?= $produto['IMAGEM_URL'] ?>" class="card-img-top imgHome" alt="Imagem do produto">
               <div class="card-body">
                 <h5 class="card-title"><?= $produto['PRODUTO_NOME'] ?></h5>
                 <p class="card-text"><?= $produto['PRODUTO_DESC'] ?></p>

@@ -25,6 +25,11 @@
   color: white !important;
 } */
 
+.imgHome {
+  height: 60%;
+  object-fit: cover;
+}
+
 #home h2 {
   color: #b70000;
 }
