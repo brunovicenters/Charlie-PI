@@ -1,3 +1,15 @@
+.bg-danger {
+  background-color: #b70000 !important;
+}
+
+.containerLogin {
+  height: 100vh;
+}
+
+.logoCharlie {
+  width: 15rem;
+}
+
 .logoNav {
   width: 70px;
 }
@@ -8,6 +20,7 @@
 
 .fotoAdm {
   width: 50px;
+  border-radius: 50%;
 }
 
 .carousel-indicators button {
@@ -19,10 +32,71 @@
   background-color: #b70000 !important;
 }
 
-/* [aria-current]:is([aria-current="page"]) {
-  background-color: #b70000 !important;
-  color: white !important;
-} */
+.imgHome {
+  height: 60%;
+  object-fit: cover;
+}
+
+.searchInput {
+  width: 40px;
+  visibility: hidden;
+  transition: width 0.3s linear;
+}
+
+.searchBar:hover .searchInput,
+.searchInput:focus {
+  visibility: visible;
+  outline: none;
+  width: 230px;
+}
+
+.searchBtn,
+.searchBtn:hover {
+  color: #b70000;
+}
+
+.tabela {
+  overflow-y: scroll;
+  max-height: 75vh;
+}
+
+.linhaTabela:hover {
+  background-color: #e8e8e8;
+}
+
+.actionsAdmin,
+.actionsAdmin:hover {
+  color: black;
+  cursor: no-drop;
+}
+
+.actionsAdmin > button {
+  border-color: rgba(000, 000, 000, 0) !important;
+}
+
+.text-truncate {
+  max-width: 9rem;
+}
+
+.imgPerfil {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.formCriar {
+  width: 40rem;
+  background: #dee2e6;
+}
+
+#login .card {
+  width: 30rem;
+  border-radius: 15px;
+}
+
+#login .card-body label {
+  background-color: #c95c5c;
+}
 
 #home h2 {
   color: #b70000;

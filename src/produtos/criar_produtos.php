@@ -1,6 +1,5 @@
 <?php
 $pagNome = "Criar Produto";
-$name = "Fulano Justinho";
 
 // Inicia a sessão para gerenciamento do usuário.
 session_start();
@@ -9,29 +8,29 @@ session_start();
 require_once('../../conexao/conexao.php');
 
 // Verifica se o administrador está logado.
-//if (!isset($_SESSION['admin_logado'])) {
-//    header("Location:login.php");
-//    exit();
-//}
+if (!isset($_SESSION['admin_login'])) {
+    header("Location:./../login/login.php");
+    exit();
+}
 
 // Bloco de consulta para buscar categorias.
 try {
-    $stmt_categoria = $pdo->prepare("SELECT * FROM CATEGORIA");
+    $stmt_categoria = $pdo->prepare("SELECT CATEGORIA_ID, CATEGORIA_NOME FROM CATEGORIA");
     $stmt_categoria->execute();
     $categorias = $stmt_categoria->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    echo "<p style='color:red;'>Erro ao buscar categorias: " . $e->getMessage() . "</p>";
+    echo $e->getMessage();
 }
 
 // Bloco que será executado quando o formulário for submetido.
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Pegando os valores do POST.
-    $nome = htmlspecialchars($_POST['nome']) ; 
+    $nome = htmlspecialchars($_POST['nome']);
     $descr = htmlspecialchars($_POST['desc']);
-    $preco = filter_input(INPUT_POST,'preco', FILTER_SANITIZE_NUMBER_INT);
-    $categoria_id = filter_input(INPUT_POST,'categoria_id', FILTER_SANITIZE_NUMBER_INT);
+    $preco = htmlspecialchars($_POST['preco']);
+    $categoria_id = filter_input(INPUT_POST, 'categoria_id', FILTER_SANITIZE_NUMBER_INT);
     $ativo = isset($_POST['ativo']) ? 1 : 0;
-    $desconto = filter_input(INPUT_POST,'desconto', FILTER_SANITIZE_NUMBER_INT);
+    $desconto = htmlspecialchars($_POST['desconto']);
     $imagens = $_POST['imagem'];
 
     // Inserindo produto no banco.
@@ -60,8 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         header("Location:./ler_produtos.php");
-    // Stops the code --
-    exit();
+        // Stops the code --
+        exit();
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
@@ -70,7 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 <?php include "../templates/head.php" ?>
-<link rel="stylesheet" href="./../assets/criar.css">
 
 <body>
     <?php include "../templates/navbar.php" ?>
@@ -99,14 +97,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <?php endforeach ?>
                         </select>
                         <div id="containerImagens">
-                            <label class="form-label col-md-12" for="imagem" >URL Imagem:</label>
+                            <label class="form-label col-md-12" for="imagem">URL Imagem:</label>
                             <input class="form-control col-md-12 mt-2 mb-3" type="url" name="imagem[]" id="imagem" required>
                         </div>
                         <div class="col-md-12 d-flex justify-content-end">
                             <button type="button" class="btn btn-outline-link " onclick="adicionarImagem()"><i class="bi bi-plus-square"></i></button>
                         </div>
                         <div class="btn-group mb-2" role="group" aria-label="Basic checkbox toggle button group">
-                            <input type="checkbox" class="btn-check" id="ativo" autocomplete="off" name="ativo">
+                            <input type="checkbox" class="btn-check" id="ativo" autocomplete="off" name="ativo" checked>
                             <label class="btn btn-outline-dark" for="ativo">Ativo</label>
                         </div>
                         <div class="col-md-12 text-end">
@@ -118,17 +116,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 
-    <script>
-        // Adiciona um novo campo de imagem URL.
-        function adicionarImagem() {
-            const containerImagens = document.getElementById('containerImagens');
-            const novoInput = document.createElement('input');
-            novoInput.classList.add('form-control', 'col-md-12', 'mt-2', 'mb-3'); 
-            novoInput.type = 'text';
-            novoInput.name = 'imagem[]';
-            containerImagens.appendChild(novoInput);
-        }
-    </script>
+    <!-- Adiciona um novo campo de URL para imagem -->
+    <script src="./../scripts/adicionarImagem.js"></script>
 
 </body>
 

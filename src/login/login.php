@@ -7,7 +7,6 @@ $pagNome = "Login"
 <html lang="en">
 
 <?php include "../templates/head.php"; ?>
-<link rel="stylesheet" href="./../assets/login.css">
 
 <body id="login">
     <div class="container">

@@ -14,11 +14,12 @@ $query->bindParam(':email', $email, PDO::PARAM_STR);
 $query->bindParam(':password', $password, PDO::PARAM_STR);
 $query->execute();
 
-$admin = $query-> fetch(PDO::PARAM_STR);
+$admin = $query->fetch(PDO::PARAM_STR);
 
 if ($query->rowCount() > 0) {
     $_SESSION["admin_id"] = $admin["ADM_ID"];
     $_SESSION["admin_nome"] = $admin["ADM_NOME"];
+    $_SESSION["admin_img"] = $admin["ADM_IMAGEM"];
     $_SESSION["admin_login"] = true;
     header("Location:./../home/home.php");
     exit();

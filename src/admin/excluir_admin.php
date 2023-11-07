@@ -1,15 +1,15 @@
 <?php
 session_start();
 
-// if (!isset($_SESSION["admin_logado"])) {
-//     header("Location:../login/login.php");
-//     exit();
-// }
+if (!isset($_SESSION['admin_login'])) {
+    header("Location:./../login/login.php");
+    exit();
+}
 
 // Conexão com o Banco de Dados
 require_once "../../conexao/conexao.php";
 
-if (isset($_GET['id'])) {
+if (isset($_GET['id']) && $_SESSION['admin_id'] == $_GET['id']) {
     $query = $pdo->prepare("SELECT * FROM ADMINISTRADOR WHERE ADM_ID=?");
     $query->execute([$_GET['id']]);
     $admin = $query->fetch(PDO::FETCH_ASSOC);

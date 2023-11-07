@@ -1,18 +1,16 @@
 <?php
 session_start();
 
-// if (!isset($_SESSION["admin_logado"])) {
-//     header("Location:../login/login.php");
-//     exit();
-// }
+if (!isset($_SESSION['admin_login'])) {
+    header("Location:./../login/login.php");
+    exit();
+}
 
 // Definindo variáveis para os imports
 $pagNome = "Gerenciar Categoria";
 $addButton = "Adicionar Categoria";
 $linkAdd = "./criar_categoria.php";
 $redirect = "ler_categoria.php";
-$name = "Fulano Justinho";
-$botao = "Editar";
 
 
 // Conexão com o Banco de Dados
@@ -54,9 +52,8 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
 <html lang="en">
 
 <?php include "../templates/head.php" ?>
-<link rel="stylesheet" href="../assets/gerenciar.css">
 
-<body>
+<body id="categoria">
     <?php include "../templates/navbar.php" ?>
     <div class="container">
         <div class="row mx-2">
@@ -101,14 +98,24 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <?php
-                                                    $catId = $categoria['CATEGORIA_ID'];
-                                                    $formPath = "./editar_categoria.php?id=$catId";
-                                                    $catNome = $categoria['CATEGORIA_NOME'];
-                                                    $catAtivo = $categoria['CATEGORIA_ATIVO'];
-                                                    $catDesc = $categoria['CATEGORIA_DESC'];
-                                                    include "../templates/form_categoria.php"
-                                                    ?>
+                                                    <form action="./editar_categoria.php?id=<?= $categoria['CATEGORIA_ID'] ?>" method="post" class="col-md-12 text-start" enctype="multipart/form-data">
+                                                        <label class="form-label col-md-12" for="nome">Nome:</label>
+                                                        <input class="form-control col-md-12 mt-2 mb-3" type="text" name="nome" id="nome" required value="<?= $categoria['CATEGORIA_NOME'] ?>">
+                                                        <label class="form-label col-md-12 mb-2" for="desc">Descrição:</label>
+                                                        <textarea class="form-control col-md-12 mt-2 mb-3" name="desc" id="desc" cols="30" rows="5" required><?= $categoria['CATEGORIA_DESC'] ?></textarea>
+                                                        <div class="btn-group mb-2" role="group" aria-label="Basic checkbox toggle button group">
+                                                            <?php
+                                                            if ($categoria['CATEGORIA_ATIVO'] == 1) { ?>
+                                                                <input type="checkbox" class="btn-check" id="ativo<?= $categoria['CATEGORIA_ID'] ?>" autocomplete="off" name="ativo" checked>
+                                                            <?php } else { ?>
+                                                                <input type="checkbox" class="btn-check" id="ativo<?= $categoria['CATEGORIA_ID'] ?>" autocomplete="off" name="ativo">
+                                                            <?php } ?>
+                                                            <label class="btn btn-outline-dark" for="ativo<?= $categoria['CATEGORIA_ID'] ?>">Ativo</label>
+                                                        </div>
+                                                        <div class="col-md-12 text-end">
+                                                            <button type="submit" class="btn btn-secondary">Editar</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

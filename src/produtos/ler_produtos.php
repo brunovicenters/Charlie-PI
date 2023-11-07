@@ -1,25 +1,32 @@
 <?php
 session_start();
 
-// if (!isset($_SESSION["admin_logado"])) {
-//     header("Location:../login/login.php");
-//     exit();
-// }
+if (!isset($_SESSION['admin_login'])) {
+    header("Location:./../login/login.php");
+    exit();
+}
 
 $pagNome = "Gerenciar produtos";
 $addButton = "Adicionar produto";
 $linkAdd = "./criar_produtos.php";
 $redirect = "ler_produtos.php";
-$name = "Fulano Justinho";
-$botao = "Editar";
 
 require_once "../../conexao/conexao.php";
+
+// Buscar todas as categorias
+try {
+    $stmt_categoria = $pdo->prepare("SELECT CATEGORIA_ID, CATEGORIA_NOME FROM CATEGORIA");
+    $stmt_categoria->execute();
+    $categorias = $stmt_categoria->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo $e->getMessage();
+}
 
 if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     try {
         $search = $_POST['search'];
 
-        $query = $pdo->prepare("SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_NOME, PI.IMAGEM_URL
+        $query = $pdo->prepare("SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_ID, C.CATEGORIA_NOME, PI.IMAGEM_ID, PI.IMAGEM_URL
                                 FROM PRODUTO P
                                 JOIN CATEGORIA C ON P.CATEGORIA_ID = C.CATEGORIA_ID 
                                 LEFT JOIN PRODUTO_IMAGEM PI ON P.PRODUTO_ID = PI.PRODUTO_ID
@@ -39,7 +46,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     // Realizando pesquisa geral
 } else {
     try {
-        $query = $pdo->prepare("SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_NOME, PI.IMAGEM_URL
+        $query = $pdo->prepare("SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_ID, C.CATEGORIA_NOME, PI.IMAGEM_ID, PI.IMAGEM_URL
                                FROM PRODUTO P
                                JOIN CATEGORIA C ON P.CATEGORIA_ID = C.CATEGORIA_ID 
                                LEFT JOIN PRODUTO_IMAGEM PI ON P.PRODUTO_ID = PI.PRODUTO_ID
@@ -55,10 +62,8 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
 <html lang="en">
 
 <?php include "../templates/head.php" ?>
-<link rel="stylesheet" href="../assets/gerenciar.css">
 
-
-<body>
+<body id="produto">
     <?php include "../templates/navbar.php" ?>
     <div class="container">
         <div class="row mx-2">
@@ -89,7 +94,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                     <?php
                                     if ($produto['IMAGEM_URL']) {
                                     ?>
-                                        <img src="<?= $produto['IMAGEM_URL'] ?>" alt="Imagem do produto" width="150">
+                                        <img src="<?= $produto['IMAGEM_URL'] ?>" alt="Imagem do produto" class="imgPerfil">
                                     <?php } else { ?>
                                         Não possui imagem
                                     <?php } ?>
@@ -108,9 +113,9 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                     <?php } ?>
                                 </td>
                                 <td>
-                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal<?= $produto['PRODUTO_ID'] ?>"><i class="bi bi-pencil-square"></i></a>
+                                    <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal<?= $produto['IMAGEM_ID'] ?>"><i class="bi bi-pencil-square"></i></a>
                                     <!-- Modal Edit-->
-                                    <div class="modal fade " id="editModal<?= $produto['PRODUTO_ID'] ?>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                    <div class="modal fade " id="editModal<?= $produto['IMAGEM_ID'] ?>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog ">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -118,18 +123,42 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <?php
-                                                    $prodId = $produto['PRODUTO_ID'];
-                                                    $formPath = "./editar_produtos.php?id=$prodId";
-                                                    $prodNome = $produto['PRODUTO_NOME'];
-                                                    $prodDesc = $produto['PRODUTO_DESC'];
-                                                    $prodValor = $produto['PRODUTO_PRECO'];
-                                                    $prodDesconto = $produto['PRODUTO_DESCONTO'];
-                                                    $prodCategoria = $produto['CATEGORIA_NOME'];
-                                                    $prodImagem = $produto['IMAGEM_URL'];
-                                                    $prodAtivo = $produto['PRODUTO_ATIVO'];
-                                                    include "../templates/form_produto.php"
-                                                    ?>
+                                                    <form action="./editar_produtos.php?id=<?= $produto['PRODUTO_ID'] ?>" method="post" class="col-md-12 text-start" enctype="multipart/form-data">
+                                                        <label class="form-label col-md-12" for="nome">Nome:</label>
+                                                        <input class="form-control col-md-12 mt-2 mb-3" type="text" name="nome" id="nome" required value="<?= $produto['PRODUTO_NOME'] ?>">
+                                                        <label class="form-label col-md-12 mb-2" for="desc">Descrição:</label>
+                                                        <textarea class="form-control col-md-12 mt-2 mb-3" name="desc" id="desc" cols="30" rows="5" required><?= $produto['PRODUTO_DESC'] ?></textarea>
+                                                        <label class="form-label col-md-12" for="preco">Preço:</label>
+                                                        <input class="form-control col-md-12 mt-2 mb-3" type="number" name="preco" id="preco" step="0.01" required value="<?= $produto['PRODUTO_PRECO'] ?>">
+                                                        <label class="form-label col-md-12" for="desconto">Desconto:</label>
+                                                        <input class="form-control col-md-12 mt-2 mb-3" type="number" name="desconto" id="desconto" step="0.01" required value="<?= $produto['PRODUTO_DESCONTO'] ?>">
+                                                        <label class="form-label col-md-12" for="categoria_id">Categoria:</label>
+                                                        <select class="form-select col-md-12 mt-2 mb-3" name="categoria_id" id="categoria_id">
+                                                            <?php
+                                                            foreach ($categorias as $categoria) :
+                                                                if ($categoria['CATEGORIA_ID'] == $produto['CATEGORIA_ID']) {
+                                                            ?>
+                                                                    <option value="<?= $categoria['CATEGORIA_ID'] ?>" selected><?= $categoria['CATEGORIA_NOME'] ?></option>
+                                                                <?php } else { ?>
+                                                                    <option value="<?= $categoria['CATEGORIA_ID'] ?>"><?= $categoria['CATEGORIA_NOME'] ?></option>
+                                                            <?php }
+                                                            endforeach; ?>
+                                                        </select>
+                                                        <label class="form-label col-md-12" for="imagem">URL Imagem:</label>
+                                                        <input class="form-control col-md-12 mt-2 mb-3" type="url" name="imagem[<?= $produto['IMAGEM_ID'] ?>]" id="imagem" required value="<?= $produto['IMAGEM_URL'] ?>">
+                                                        <div class="btn-group mb-2" role="group" aria-label="Basic checkbox toggle button group">
+                                                            <?php
+                                                            if ($produto['PRODUTO_ATIVO'] == 1) { ?>
+                                                                <input type="checkbox" class="btn-check" id="ativo<?= $produto['PRODUTO_ID'] ?>" autocomplete="off" name="ativo" checked>
+                                                            <?php } else { ?>
+                                                                <input type="checkbox" class="btn-check" id="ativo<?= $produto['PRODUTO_ID'] ?>" autocomplete="off" name="ativo">
+                                                            <?php } ?>
+                                                            <label class="btn btn-outline-dark" for="ativo<?= $produto['PRODUTO_ID'] ?>">Ativo</label>
+                                                        </div>
+                                                        <div class="col-md-12 text-end">
+                                                            <button type="submit" class="btn btn-secondary">Editar</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -142,11 +171,11 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="deleteModalLabel">Tem certeza que quer deletar o produto?</h1>
+                                                    <h1 class="modal-title fs-5" id="deleteModalLabel">A deleção de produtos está indisponível no momento.</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a href="./excluir_produtos.php?id=<?= $produto['PRODUTO_ID'] ?>" type="btn" class="btn bg-danger text-white">Delete</a>
+                                                    <!-- <a href="./excluir_produtos.php?id=< ?= $produto['PRODUTO_ID'] ?>" type="btn" class="btn bg-danger text-white">Delete</a> -->
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                 </div>
                                             </div>

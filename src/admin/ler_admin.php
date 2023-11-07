@@ -1,18 +1,15 @@
 <?php
 session_start();
 
-// if (!isset($_SESSION["admin_logado"])) {
-//     header("Location:../login/login.php");
-//     exit();
-// }
+if (!isset($_SESSION["admin_login"])) {
+    header("Location:../login/login.php");
+    exit();
+}
 
 $pagNome = "Gerenciar Administrador";
 $addButton = "Adicionar Administrador";
 $linkAdd = "./criar_admin.php";
 $redirect = "ler_admin.php";
-$name = "Fulano Justinho";
-$admLogId = 2; //session varible that has adm logged in id as value
-$botao = "Editar";
 
 require_once "../../conexao/conexao.php";
 
@@ -50,7 +47,6 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
 <html lang="en">
 
 <?php include "../templates/head.php" ?>
-<link rel="stylesheet" href="../assets/gerenciar.css">
 
 <body>
     <?php include "../templates/navbar.php" ?>
@@ -80,7 +76,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                     <?php
                                     if ($admin['ADM_IMAGEM']) {
                                     ?>
-                                        <img src="<?= $admin['ADM_IMAGEM'] ?>" alt="Admin image" width="150">
+                                        <img src="<?= $admin['ADM_IMAGEM'] ?>" alt="Admin image" class="imgPerfil">
                                     <?php } else { ?>
                                         Não possui imagem
                                     <?php } ?>
@@ -96,7 +92,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                     <?php } ?>
                                 <td>
                                     <?php
-                                    if ($admLogId == $admin['ADM_ID']) {
+                                    if ($_SESSION['admin_id'] == $admin['ADM_ID']) {
                                     ?>
                                         <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal<?= $admin['ADM_ID'] ?>"><i class="bi bi-pencil-square"></i></a>
                                         <!-- Modal Edit-->
@@ -108,16 +104,33 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <?php
-                                                        $admId = $admin['ADM_ID'];
-                                                        $formPath = "./editar_admin.php?id=$admId";
-                                                        $admNome = $admin['ADM_NOME'];
-                                                        $admEmail = $admin['ADM_EMAIL'];
-                                                        $admSenha = $admin['ADM_SENHA'];
-                                                        $admAtivo = $admin['ADM_ATIVO'];
-                                                        $admImagem = $admin['ADM_IMAGEM'];
-                                                        include "../templates/form_admin.php"
-                                                        ?>
+                                                        <form action="./editar_admin.php?id=<?= $admin['ADM_ID'] ?>" method="post" class="col-md-12 text-start" enctype="multipart/form-data">
+                                                            <label class="form-label col-md-12" for="nome">Nome:</label>
+                                                            <input class="form-control col-md-12 mt-2 mb-3" type="text" name="nome" id="nome" required value="<?= $admin['ADM_NOME'] ?>">
+                                                            <label class="form-label col-md-12" for="email">Email:</label>
+                                                            <input class="form-control col-md-12 mt-2 mb-3" type="text" name="email" id="email" step="0.01" required value="<?= $admin['ADM_EMAIL'] ?>">
+                                                            <label class="form-1label col-md-12" for="senha">Senha:</label>
+                                                            <input class="form-control col-md-12 mt-2 mb-3" type="password" name="senha" id="senha" step="0.01" required value="<?= $admin['ADM_SENHA'] ?>">
+                                                            <div class="btn-group mb-2" role="group" aria-label="Basic checkbox toggle button group">
+                                                                <?php
+                                                                if ($admin['ADM_ATIVO'] == 1) {
+                                                                ?>
+                                                                    <input type="checkbox" class="btn-check" id="ativo<?= $admin['ADM_ID'] ?>" autocomplete="off" name="ativo" checked>
+                                                                <?php
+                                                                } else {
+                                                                ?>
+                                                                    <input type="checkbox" class="btn-check" id="ativo<?= $admin['ADM_ID'] ?>" autocomplete="off" name="ativo">
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                                <label class="btn btn-outline-dark" for="ativo<?= $admin['ADM_ID'] ?>">Ativo</label>
+                                                            </div>
+                                                            <label class="form-label col-md-12" for="imagem">URL Imagem:</label>
+                                                            <input class="form-control col-md-12 mt-2 mb-3" type="url" name="imagem" id="imagem" required value="<?= $admin['ADM_IMAGEM'] ?>">
+                                                            <div class="col-md-12 text-end">
+                                                                <button type="submit" class="btn btn-secondary">Editar</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -128,7 +141,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                 </td>
                                 <td>
                                     <?php
-                                    if ($admLogId == $admin['ADM_ID']) {
+                                    if ($_SESSION['admin_id'] == $admin['ADM_ID']) {
                                     ?>
                                         <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $admin['ADM_ID'] ?>"><i class="bi bi-trash3"></i></a>
                                         <!-- Modal Delete -->
