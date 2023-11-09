@@ -26,12 +26,13 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     try {
         $search = $_POST['search'];
 
-        $query = $pdo->prepare("SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_ID, C.CATEGORIA_NOME, PI.IMAGEM_ID, PI.IMAGEM_URL
-                                FROM PRODUTO P
-                                JOIN CATEGORIA C ON P.CATEGORIA_ID = C.CATEGORIA_ID 
-                                LEFT JOIN PRODUTO_IMAGEM PI ON P.PRODUTO_ID = PI.PRODUTO_ID
-                                WHERE P.PRODUTO_NOME LIKE '%$search%'
-                                ORDER BY P.PRODUTO_ID, PI.IMAGEM_ORDEM");
+        $sql = "SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_ID, C.CATEGORIA_NOME, PI.IMAGEM_ID, PI.IMAGEM_URL
+        FROM PRODUTO P
+        JOIN CATEGORIA C ON P.CATEGORIA_ID = C.CATEGORIA_ID 
+        LEFT JOIN PRODUTO_IMAGEM PI ON P.PRODUTO_ID = PI.PRODUTO_ID
+        WHERE P.PRODUTO_NOME LIKE '%$search%'
+        ORDER BY P.PRODUTO_ID, PI.IMAGEM_ORDEM";
+        $query = $pdo->prepare($sql);
 
         $query->execute();
         $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -46,11 +47,12 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     // Realizando pesquisa geral
 } else {
     try {
-        $query = $pdo->prepare("SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_ID, C.CATEGORIA_NOME, PI.IMAGEM_ID, PI.IMAGEM_URL
-                               FROM PRODUTO P
-                               JOIN CATEGORIA C ON P.CATEGORIA_ID = C.CATEGORIA_ID 
-                               LEFT JOIN PRODUTO_IMAGEM PI ON P.PRODUTO_ID = PI.PRODUTO_ID
-                               ORDER BY P.PRODUTO_ID, PI.IMAGEM_ORDEM");
+        $sql = "SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_ID, C.CATEGORIA_NOME, PI.IMAGEM_ID, PI.IMAGEM_URL
+        FROM PRODUTO P
+        JOIN CATEGORIA C ON P.CATEGORIA_ID = C.CATEGORIA_ID 
+        LEFT JOIN PRODUTO_IMAGEM PI ON P.PRODUTO_ID = PI.PRODUTO_ID
+        ORDER BY P.PRODUTO_ID, PI.IMAGEM_ORDEM";
+        $query = $pdo->prepare($sql);
         $query->execute();
         $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
@@ -146,6 +148,9 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                                         </select>
                                                         <label class="form-label col-md-12" for="imagem">URL Imagem:</label>
                                                         <input class="form-control col-md-12 mt-2 mb-3" type="url" name="imagem[<?= $produto['IMAGEM_ID'] ?>]" id="imagem" required value="<?= $produto['IMAGEM_URL'] ?>">
+                                                        <div class="col-md-12 d-flex justify-content-end">
+                                                            <a href="./add_imagem.php?id=<?= $produto['PRODUTO_ID'] ?>" id="addImg" type="button" class="btn btn-outline-link "><i class="bi bi-plus-square"></i></a>
+                                                        </div>
                                                         <div class="btn-group mb-2" role="group" aria-label="Basic checkbox toggle button group">
                                                             <?php
                                                             if ($produto['PRODUTO_ATIVO'] == 1) { ?>
@@ -208,6 +213,10 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
             } else if (isset($_GET['successCriar'])) {
                 $bgClass = "bg-success text-white";
                 $msg = "Produto criado com sucesso!";
+                include "./../templates/toast.php";
+            } else if (isset($_GET['successAdd'])) {
+                $bgClass = "bg-success text-white";
+                $msg = "Imagem(ns) adicionada(s) com sucesso!";
                 include "./../templates/toast.php";
             } else if (isset($_GET['prod404'])) { // Produto inexistente
                 $bgClass = "bg-warning";
