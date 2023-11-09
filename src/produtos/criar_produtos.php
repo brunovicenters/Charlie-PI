@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $query_imagem->execute();
         }
 
-        header("Location:./ler_produtos.php");
+        header("Location:./ler_produtos.php?successCriar");
         // Stops the code --
         exit();
     } catch (PDOException $e) {

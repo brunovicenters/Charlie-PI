@@ -15,15 +15,15 @@ if (isset($_GET['id'])) {
     $produto = $query->fetch(PDO::FETCH_ASSOC);
 
     if (!$produto) {
-        header('Location:./ler_produtos.php');
+        header('Location:./ler_produtos.php?prod404');
         exit();
     } else {
         $query = $pdo->prepare('DELETE FROM PRODUTO WHERE PRODUTO_ID = ?');
         $query->execute([$_GET['id']]);
-        header('Location:./ler_produtos.php');
+        header('Location:./ler_produtos.php?successDel');
         exit();
     }
 } else {
-    header('Location:./ler_produtos.php');
+    header('Location:./ler_produtos.php?prod404');
     exit();
 }
