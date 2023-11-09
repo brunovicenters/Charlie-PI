@@ -190,7 +190,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                 $bgClass = "bg-success text-white";
                 $msg = "Administrador(a) criado(a) com sucesso!";
                 include "./../templates/toast.php";
-            } else if (isset($_GET['adm404'])) { // Categoria inexistente
+            } else if (isset($_GET['adm404'])) { // Administrador inexistente
                 $bgClass = "bg-warning";
                 $msg = "Administrador(a) inexistente!";
                 include "./../templates/toast.php";
