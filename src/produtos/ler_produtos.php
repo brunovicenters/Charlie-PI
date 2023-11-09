@@ -37,7 +37,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
         $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
         if (empty($produtos)) {
             // Redireciona com erro
-            header("Location:./ler_admin.php?empty=$search");
+            header("Location:./ler_produtos.php?empty=$search");
             exit();
         }
     } catch (PDOException $e) {
@@ -190,8 +190,30 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                     </thead>
                 </table>
             </main>
+            <!-- Mensagem de erro -->
+            <?php
+            if (isset($_GET['empty']) && !empty($_GET['empty'])) {
+                $empty = $_GET['empty'];
+            ?>
+                <button type="button" class="btn visually-hidden position-absolute" id="liveToastBtn"></button>
+
+                <!-- Toast Message -->
+                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                    <div id="liveToast" class="toast align-items-center bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="d-flex">
+                            <div class="toast-body">
+                                Nenhum resultado encontrado com <?= $empty ?>
+                            </div>
+                            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+            <?php
+            }
+            ?>
         </div>
     </div>
+    <script src="../scripts/toast.js"></script>
 </body>
 
 </html>
