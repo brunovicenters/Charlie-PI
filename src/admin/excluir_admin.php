@@ -15,15 +15,15 @@ if (isset($_GET['id']) && $_SESSION['admin_id'] == $_GET['id']) {
     $admin = $query->fetch(PDO::FETCH_ASSOC);
 
     if (!$admin) {
-        header('Location:./ler_admin.php');
+        header('Location:./ler_admin.php?adm404');
         exit();
     } else {
         $query = $pdo->prepare('DELETE FROM ADMINISTRADOR WHERE ADM_ID = ?');
         $query->execute([$_GET['id']]);
-        header('Location:./ler_admin.php');
+        header('Location:./ler_admin.php?successDel');
         exit();
     }
 } else {
-    header('Location:./ler_admin.php');
+    header('Location:./ler_admin.php?adm404');
     exit();
 }

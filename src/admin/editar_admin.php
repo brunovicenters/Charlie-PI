@@ -33,17 +33,17 @@ if (isset($_GET['id']) && $_SESSION['admin_id'] == $_GET['id']) {
             $query->bindParam('id', $id, PDO::PARAM_INT);
             $query->execute();
 
-            header('Location:./ler_admin.php');
+            header('Location:./ler_admin.php?successEdit');
             exit();
         } else {
-            header('Location:./ler_admin.php');
+            header('Location:./ler_admin.php?formInvalid');
             exit();
         }
     } else {
-        header("Location:./ler_admin.php");
+        header("Location:./ler_admin.php?adm404");
         exit();
     }
 } else {
-    header("Location:./ler_admin.php");
+    header("Location:./ler_admin.php?adm404");
     exit();
 }

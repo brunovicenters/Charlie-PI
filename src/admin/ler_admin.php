@@ -171,29 +171,38 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                     </thead>
                 </table>
             </main>
+            <!-- Mensagem de erro -->
             <?php
-            if (isset($_GET['empty']) && !empty($_GET['empty'])) {
+            if (isset($_GET['empty']) && !empty($_GET['empty'])) { // Nenhum resultado para pesquisa
                 $empty = $_GET['empty'];
-            ?>
-                <button type="button" class="btn visually-hidden position-absolute" id="liveToastBtn"></button>
-
-                <!-- Toast Message -->
-                <div class="toast-container position-fixed bottom-0 end-0 p-3">
-                    <div id="liveToast" class="toast align-items-center bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true">
-                        <div class="d-flex">
-                            <div class="toast-body">
-                                Nenhum resultado encontrado com <?= $empty ?>
-                            </div>
-                            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                        </div>
-                    </div>
-                </div>
-                <script src="../scripts/toast.js"></script>
-            <?php
+                $bgClass = "bg-danger text-white";
+                $msg = "Nenhum resultado encontrado com $empty";
+                include "./../templates/toast.php";
+            } else if (isset($_GET['successEdit'])) { // Edição realizada com sucesso
+                $bgClass = "bg-success text-white";
+                $msg = "Administrador(a) editado(a) com sucesso!";
+                include "./../templates/toast.php";
+            } else if (isset($_GET['successDel'])) { // Deleção realizada com sucesso
+                $bgClass = "bg-success text-white";
+                $msg = "Administrador(a) deletado(a) com sucesso!";
+                include "./../templates/toast.php";
+            } else if (isset($_GET['successCriar'])) {
+                $bgClass = "bg-success text-white";
+                $msg = "Administrador(a) criado(a) com sucesso!";
+                include "./../templates/toast.php";
+            } else if (isset($_GET['adm404'])) { // Categoria inexistente
+                $bgClass = "bg-warning";
+                $msg = "Administrador(a) inexistente!";
+                include "./../templates/toast.php";
+            } else if (isset($_GET['formInvalid'])) {
+                $bgClass = "bg-warning";
+                $msg = "Envio de formulário inválido!";
+                include "./../templates/toast.php";
             }
             ?>
         </div>
     </div>
+    <script src="../scripts/toast.js"></script>
 </body>
 
 </html>

@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $query->bindParam(':ativo', $ativo, PDO::PARAM_INT);
         $query->bindParam(':imagem', $imagem);
         $query->execute();
-        header("Location:./ler_admin.php");
+        header("Location:./ler_admin.php?successCriar");
         exit();
     } catch (PDOException $e) {
         echo $e->getMessage();
