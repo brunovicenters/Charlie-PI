@@ -29,17 +29,17 @@ if (isset($_GET['id'])) {
             $query->bindParam('id', $id, PDO::PARAM_INT);
             $query->execute();
 
-            header('Location:./ler_categoria.php');
+            header('Location:./ler_categoria.php?successEdit');
             exit();
         } else {
-            header('Location:./ler_categoria.php');
+            header('Location:./ler_categoria.php?formInvalid');
             exit();
         }
     } else {
-        header("Location:./ler_categoria.php");
+        header("Location:./ler_categoria.php?cat404");
         exit();
     }
 } else {
-    header("Location:./ler_categoria.php");
+    header("Location:./ler_categoria.php?cat404");
     exit();
 }

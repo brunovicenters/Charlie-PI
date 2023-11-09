@@ -15,15 +15,15 @@ if (isset($_GET['id'])) {
     $categoria = $query->fetch(PDO::FETCH_ASSOC);
 
     if (!$categoria) {
-        header('Location:./ler_categoria.php');
+        header('Location:./ler_categoria.php?cat404');
         exit();
     } else {
         $query = $pdo->prepare('DELETE FROM CATEGORIA WHERE CATEGORIA_ID = ?');
         $query->execute([$_GET['id']]);
-        header('Location:./ler_categoria.php');
+        header('Location:./ler_categoria.php?successDel');
         exit();
     }
 } else {
-    header('Location:./ler_categoria.php');
+    header('Location:./ler_categoria.php?cat404');
     exit();
 }
