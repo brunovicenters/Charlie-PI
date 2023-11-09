@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $query->bindParam(':desc', $descr, PDO::PARAM_STR);
         $query->bindParam(':ativo', $ativo, PDO::PARAM_INT);
         $query->execute();
-        header("Location:./ler_categoria.php");
+        header("Location:./ler_categoria.php?successCriar");
         exit();
     } catch (PDOException $e) {
         echo $e->getMessage();

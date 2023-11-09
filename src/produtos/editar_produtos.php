@@ -49,17 +49,17 @@ if (isset($_GET['id'])) {
             $query->bindParam('id', $id, PDO::PARAM_INT);
             $query->execute();
 
-            header('Location:./ler_produtos.php');
+            header('Location:./ler_produtos.php?successEdit');
             exit();
         } else {
-            header('Location:./ler_produtos.php');
+            header('Location:./ler_produtos.php?formInvalid');
             exit();
         }
     } else {
-        header("Location:./ler_produtos.php");
+        header("Location:./ler_produtos.php?prod404");
         exit();
     }
 } else {
-    header("Location:./ler_produtos.php");
+    header("Location:./ler_produtos.php?prod404");
     exit();
 }

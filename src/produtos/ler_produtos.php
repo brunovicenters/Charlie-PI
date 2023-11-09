@@ -37,7 +37,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
         $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
         if (empty($produtos)) {
             // Redireciona com erro
-            header("Location:./ler_admin.php?empty=$search");
+            header("Location:./ler_produtos.php?empty=$search");
             exit();
         }
     } catch (PDOException $e) {
@@ -190,8 +190,38 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                     </thead>
                 </table>
             </main>
+            <!-- Mensagem de erro -->
+            <?php
+            if (isset($_GET['empty']) && !empty($_GET['empty'])) { // Nenhum resultado para pesquisa
+                $empty = $_GET['empty'];
+                $bgClass = "bg-danger text-white";
+                $msg = "Nenhum resultado encontrado com $empty";
+                include "./../templates/toast.php";
+            } else if (isset($_GET['successEdit'])) { // Edição realizada com sucesso
+                $bgClass = "bg-success text-white";
+                $msg = "Produto editado com sucesso!";
+                include "./../templates/toast.php";
+            } else if (isset($_GET['successDel'])) { // Deleção realizada com sucesso
+                $bgClass = "bg-success text-white";
+                $msg = "Produto deletado com sucesso!";
+                include "./../templates/toast.php";
+            } else if (isset($_GET['successCriar'])) {
+                $bgClass = "bg-success text-white";
+                $msg = "Produto criado com sucesso!";
+                include "./../templates/toast.php";
+            } else if (isset($_GET['prod404'])) { // Produto inexistente
+                $bgClass = "bg-warning";
+                $msg = "Produto inexistente!";
+                include "./../templates/toast.php";
+            } else if (isset($_GET['formInvalid'])) {
+                $bgClass = "bg-warning";
+                $msg = "Envio de formulário inválido!";
+                include "./../templates/toast.php";
+            }
+            ?>
         </div>
     </div>
+    <script src="../scripts/toast.js"></script>
 </body>
 
 </html>

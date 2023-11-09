@@ -22,15 +22,28 @@ $pagNome = "Login"
                         <label class="form-label rounded-4 ps-2 pe-5" for="password">Senha:</label>
                         <input class="form-control mb-2" type="password" name="password" id="password" required>
                         <button class="btn btn-success btn btn-light mx-auto d-block " type="submit">Entrar</button>
-                        <!-- Mensagem de erro -->
-                        <?php if (isset($_GET['error'])) {
-                            echo "<p class='text-danger mt-3'>O usuário ou a senha estão incorretos</p>";
-                        } ?>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Mensagem de erro -->
+    <?php if (isset($_GET['error'])) { ?>
+        <button type="button" class="btn visually-hidden position-absolute" id="liveToastBtn"></button>
+
+        <!-- Toast Message -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast align-items-center bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        E-mail ou senha inválidos!
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+    <script src="../scripts/toast.js"></script>
 </body>
 
 </html>
