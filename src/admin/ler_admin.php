@@ -17,7 +17,8 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     try {
         $search = $_POST['search'];
 
-        $query = $pdo->prepare("SELECT ADM_ID, ADM_NOME, ADM_EMAIL, ADM_SENHA, ADM_ATIVO, ADM_IMAGEM from ADMINISTRADOR where ADM_NOME like '%$search%' ORDER BY ADM_ID");
+        $sql = "SELECT ADM_ID, ADM_NOME, ADM_EMAIL, ADM_SENHA, ADM_ATIVO, ADM_IMAGEM from ADMINISTRADOR where ADM_NOME like '%$search%' ORDER BY ADM_ID";
+        $query = $pdo->prepare($sql);
 
         $query->execute();
 
@@ -33,7 +34,8 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     // Realizando pesquisa geral
 } else {
     try {
-        $query = $pdo->prepare("SELECT ADM_ID, ADM_NOME, ADM_EMAIL, ADM_SENHA, ADM_ATIVO, ADM_IMAGEM from ADMINISTRADOR ORDER BY ADM_ID");
+        $sql = "SELECT ADM_ID, ADM_NOME, ADM_EMAIL, ADM_SENHA, ADM_ATIVO, ADM_IMAGEM from ADMINISTRADOR ORDER BY ADM_ID";
+        $query = $pdo->prepare($sql);
 
         $query->execute();
 
