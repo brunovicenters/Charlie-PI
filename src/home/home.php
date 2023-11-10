@@ -59,23 +59,26 @@ $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
     <div class="d-flex justify-content-evenly">
       <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
         <?php
+        $imgNum = 1;
         $sql = "SELECT IMAGEM_URL FROM PRODUTO_IMAGEM WHERE PRODUTO_ID = :id";
         foreach ($produtos as $produto) :
           $query = $pdo->prepare($sql);
           $query->bindParam("id", $produto["PRODUTO_ID"]);
           $query->execute();
           $imagem = $query->fetch(PDO::FETCH_ASSOC);
+
         ?>
           <div class="col">
             <div class="card h-100">
               <img src="<?= $imagem['IMAGEM_URL'] ?>" class="card-img-top imgHome" alt="Imagem do produto">
               <div class="card-body">
                 <h5 class="card-title"><?= $produto['PRODUTO_NOME'] ?></h5>
-                <p class="card-text"><?= $produto['PRODUTO_DESC'] ?></p>
+                <p class="card-text truncateText<?= $imgNum ?>"><?= $produto['PRODUTO_DESC'] ?></p>
               </div>
             </div>
           </div>
         <?php
+          $imgNum++;
         endforeach;
         ?>
       </div>

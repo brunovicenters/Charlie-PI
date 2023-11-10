@@ -7,7 +7,8 @@ function truncateText(selector, maxLength) {
   }
   return truncated;
 }
-document.querySelector(".card-text").innerText = truncateText(
-  ".card-text",
-  200
-);
+let cards = document.querySelectorAll(".card-text");
+cards.forEach((card) => {
+  let c = `.${card.classList[1]}`;
+  document.querySelector(c).innerText = truncateText(c, 200);
+});
