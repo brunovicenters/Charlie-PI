@@ -9,7 +9,7 @@ if (!isset($_SESSION['admin_login'])) {
 // Conexão com o Banco de Dados
 require_once "../../conexao/conexao.php";
 
-if (isset($_GET['id']) && $_SESSION['admin_id'] == $_GET['id']) {
+if (isset($_GET['id']) && $_SESSION['admin_id'] == $_GET['id'] || $_SESSION['admin_id'] == 1) {
     $query = $pdo->prepare("SELECT * FROM ADMINISTRADOR WHERE ADM_ID=?");
     $query->execute([$_GET['id']]);
     $admin = $query->fetch(PDO::FETCH_ASSOC);
