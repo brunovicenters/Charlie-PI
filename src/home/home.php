@@ -31,15 +31,20 @@ $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
 
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="./../assets/image/carrosselRoupas.jpg" class="d-block w-100" alt="Algumas roupas penduradas em um cabide" height="500px">
+        <img src="./../assets/image/carrosselModelos.jpg" class="d-block w-100 object-fit-cover" alt="Modelos com roupas da loja em um ambiente colorido" height="500px">
       </div>
 
       <div class="carousel-item">
-        <img src="./../assets/image/carrosselDesenho.jpg" class="d-block w-100" alt="Imagens de desenho de roupa" height="500px">
+        <img src="./../assets/image/carrosselModeloF.jpg" class="d-block w-100 object-fit-cover" alt="Modelo com casaco da loja encostada no espelho" height="500px">
+      </div>
+
+      <div class="carousel-item">
+        <img src="./../assets/image/carrosselModeloFSorrindo.jpg" class="d-block w-100 object-fit-cover" alt="Modelo com camiseta da loja rindo" height="500px">
       </div>
     </div>
 
