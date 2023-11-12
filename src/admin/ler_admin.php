@@ -94,7 +94,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                     <?php } ?>
                                 <td>
                                     <?php
-                                    if ($_SESSION['admin_id'] == $admin['ADM_ID']) {
+                                    if ($_SESSION['admin_id'] == $admin['ADM_ID'] || $_SESSION['admin_id'] == 1) {
                                     ?>
                                         <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal<?= $admin['ADM_ID'] ?>"><i class="bi bi-pencil-square"></i></a>
                                         <!-- Modal Edit-->
@@ -143,7 +143,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                 </td>
                                 <td>
                                     <?php
-                                    if ($_SESSION['admin_id'] == $admin['ADM_ID']) {
+                                    if ($_SESSION['admin_id'] == $admin['ADM_ID'] || $_SESSION['admin_id'] == 1) {
                                     ?>
                                         <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $admin['ADM_ID'] ?>"><i class="bi bi-trash3"></i></a>
                                         <!-- Modal Delete -->
