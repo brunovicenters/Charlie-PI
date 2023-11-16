@@ -36,6 +36,7 @@ if (isset($_GET['id'])) {
             $desc = isset($_POST['desc']) ? htmlspecialchars($_POST["desc"]) : '';
             $preco = isset($_POST['preco']) ? htmlspecialchars($_POST['preco']) : '';
             $desconto = isset($_POST['desconto']) ? htmlspecialchars($_POST['desconto']) : '';
+            $qtd = isset($_POST['qtd']) ? htmlspecialchars($_POST['qtd']) : '';
             $categoria = isset($_POST['categoria_id']) ? filter_input(INPUT_POST, 'categoria_id', FILTER_SANITIZE_NUMBER_INT) : '';
             $ativo = isset($_POST['ativo']) ? 1 : 0;
 
@@ -48,6 +49,12 @@ if (isset($_GET['id'])) {
             $query->bindParam('ativo', $ativo, PDO::PARAM_INT);
             $query->bindParam('id', $id, PDO::PARAM_INT);
             $query->execute();
+
+            $query_qtd = $pdo->prepare('UPDATE PRODUTO_ESTOQUE SET PRODUTO_QTD = :qtd WHERE PRODUTO_ID = :id');
+            $query_qtd->bindParam('qtd', $qtd, PDO::PARAM_INT);
+            $query_qtd->bindParam('id', $id, PDO::PARAM_INT);
+            $query_qtd->execute();
+
 
             header('Location:./ler_produtos.php?successEdit');
             exit();

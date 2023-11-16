@@ -26,10 +26,11 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     try {
         $search = $_POST['search'];
 
-        $sql = "SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_ID, C.CATEGORIA_NOME, PI.IMAGEM_ID, PI.IMAGEM_URL
+        $sql = "SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_ID, C.CATEGORIA_NOME, PI.IMAGEM_ID, PI.IMAGEM_URL, PE.PRODUTO_QTD
         FROM PRODUTO P
         JOIN CATEGORIA C ON P.CATEGORIA_ID = C.CATEGORIA_ID 
         LEFT JOIN PRODUTO_IMAGEM PI ON P.PRODUTO_ID = PI.PRODUTO_ID
+        LEFT JOIN PRODUTO_ESTOQUE PE ON P.PRODUTO_ID = PE.PRODUTO_ID
         WHERE P.PRODUTO_NOME LIKE '%$search%'
         ORDER BY P.PRODUTO_ID, PI.IMAGEM_ORDEM";
         $query = $pdo->prepare($sql);
@@ -47,10 +48,11 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     // Realizando pesquisa geral
 } else {
     try {
-        $sql = "SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_ID, C.CATEGORIA_NOME, PI.IMAGEM_ID, PI.IMAGEM_URL
+        $sql = "SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_ID, C.CATEGORIA_NOME, PI.IMAGEM_ID, PI.IMAGEM_URL, PE.PRODUTO_QTD
         FROM PRODUTO P
         JOIN CATEGORIA C ON P.CATEGORIA_ID = C.CATEGORIA_ID 
         LEFT JOIN PRODUTO_IMAGEM PI ON P.PRODUTO_ID = PI.PRODUTO_ID
+        LEFT JOIN PRODUTO_ESTOQUE PE ON P.PRODUTO_ID = PE.PRODUTO_ID
         ORDER BY P.PRODUTO_ID, PI.IMAGEM_ORDEM";
         $query = $pdo->prepare($sql);
         $query->execute();
@@ -81,6 +83,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                             <th scope="col">Descrição</th>
                             <th scope="col">Preço</th>
                             <th scope="col">Desconto</th>
+                            <th scope="col">Estoque</th>
                             <th scope="col">Categoria</th>
                             <th scope="col">Ativo</th>
                             <th scope="col"></th>
@@ -101,10 +104,11 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                         Não possui imagem
                                     <?php } ?>
                                 </td>
-                                <td><?= $produto['PRODUTO_NOME'] ?></td>
+                                <td class="text-truncate"><?= $produto['PRODUTO_NOME'] ?></td>
                                 <td class="text-truncate"><?= $produto['PRODUTO_DESC'] ?></td>
                                 <td>R$<?= $produto['PRODUTO_PRECO'] ?></td>
                                 <td>R$<?= $produto['PRODUTO_DESCONTO'] ?></td>
+                                <td>x<?= $produto['PRODUTO_QTD'] ?></td>
                                 <td><?= $produto['CATEGORIA_NOME'] ?></td>
                                 <td>
                                     <?php

@@ -7,6 +7,8 @@
     <input class="form-control col-md-12 mt-2 mb-3" type="number" name="preco" id="preco" step="0.01" required value="<?= $produto['PRODUTO_PRECO'] ?>">
     <label class="form-label col-md-12" for="desconto">Desconto:</label>
     <input class="form-control col-md-12 mt-2 mb-3" type="number" name="desconto" id="desconto" step="0.01" required value="<?= $produto['PRODUTO_DESCONTO'] ?>">
+    <label class="form-label col-md-12" for="qtd">Estoque:</label>
+    <input class="form-control col-md-12 mt-2 mb-3" type="number" name="qtd" id="qtd" step="1" required value="<?= $produto['PRODUTO_QTD'] ?>">
     <label class="form-label col-md-12" for="categoria_id">Categoria:</label>
     <select class="form-select col-md-12 mt-2 mb-3" name="categoria_id" id="categoria_id">
         <?php

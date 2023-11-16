@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $categoria_id = filter_input(INPUT_POST, 'categoria_id', FILTER_SANITIZE_NUMBER_INT);
     $ativo = isset($_POST['ativo']) ? 1 : 0;
     $desconto = htmlspecialchars($_POST['desconto']);
+    $qtd = htmlspecialchars($_POST['qtd']);
     $imagens = $_POST['imagem'];
 
     // Inserindo produto no banco.
@@ -57,6 +58,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $query_imagem->bindParam(':ordem_imagem', $ordem, PDO::PARAM_INT);
             $query_imagem->execute();
         }
+
+
+        $sql = 'INSERT INTO PRODUTO_ESTOQUE (PRODUTO_ID, PRODUTO_QTD) VALUES (:id, :qtd)';
+        $query_qtd = $pdo->prepare($sql);
+        $query_qtd->bindParam('id', $produto_id, PDO::PARAM_INT);
+        $query_qtd->bindParam('qtd', $qtd, PDO::PARAM_INT);
+        $query_qtd->execute();
+
 
         header("Location:./ler_produtos.php?successCriar");
         // Stops the code --
@@ -88,6 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <input class="form-control col-md-12 mt-2 mb-3" type="number" name="preco" id="preco" step="0.01" required>
                         <label class="form-label col-md-12" for="desconto">Desconto:</label>
                         <input class="form-control col-md-12 mt-2 mb-3" type="number" name="desconto" id="desconto" step="0.01" required>
+                        <label class="form-label col-md-12" for="qtd">Estoque:</label>
+                        <input class="form-control col-md-12 mt-2 mb-3" type="number" name="qtd" id="qtd" step="1" required>
                         <label class="form-label col-md-12" for="categoria_id">Categoria:</label>
                         <select class="form-select col-md-12 mt-2 mb-3" name="categoria_id" id="categoria_id">
                             <?php
