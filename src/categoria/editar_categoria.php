@@ -18,19 +18,23 @@ if (isset($_GET['id'])) {
 
     if ($categoria) {
         if (!empty($_POST)) {
-            $nome = isset($_POST['nome']) ? htmlspecialchars($_POST["nome"]) : '';
-            $desc = isset($_POST['desc']) ? htmlspecialchars($_POST["desc"]) : '';
-            $ativo = isset($_POST['ativo']) ? 1 : 0;
+            try {
+                $nome = isset($_POST['nome']) ? htmlspecialchars($_POST["nome"]) : '';
+                $desc = isset($_POST['desc']) ? htmlspecialchars($_POST["desc"]) : '';
+                $ativo = isset($_POST['ativo']) ? 1 : 0;
 
-            $query = $pdo->prepare('UPDATE CATEGORIA SET CATEGORIA_NOME = :nome, CATEGORIA_DESC = :desc, CATEGORIA_ATIVO = :ativo WHERE CATEGORIA_ID = :id');
-            $query->bindParam('nome', $nome, PDO::PARAM_STR);
-            $query->bindParam('desc', $desc, PDO::PARAM_STR);
-            $query->bindParam('ativo', $ativo, PDO::PARAM_INT);
-            $query->bindParam('id', $id, PDO::PARAM_INT);
-            $query->execute();
+                $query = $pdo->prepare('UPDATE CATEGORIA SET CATEGORIA_NOME = :nome, CATEGORIA_DESC = :desc, CATEGORIA_ATIVO = :ativo WHERE CATEGORIA_ID = :id');
+                $query->bindParam('nome', $nome, PDO::PARAM_STR);
+                $query->bindParam('desc', $desc, PDO::PARAM_STR);
+                $query->bindParam('ativo', $ativo, PDO::PARAM_INT);
+                $query->bindParam('id', $id, PDO::PARAM_INT);
+                $query->execute();
 
-            header('Location:./ler_categoria.php?successEdit');
-            exit();
+                header('Location:./ler_categoria.php?successEdit');
+                exit();
+            } catch (PDOException $e) {
+                echo 'Erro: ' . $e->getMessage();
+            }
         } else {
             header('Location:./ler_categoria.php?formInvalid');
             exit();
