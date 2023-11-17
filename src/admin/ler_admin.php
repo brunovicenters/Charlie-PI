@@ -125,7 +125,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="deleteModalLabel">A deleção de admins está indisponível no momento.</h1>
+                                                        <h1 class="modal-title fs-5" id="deleteModalLabel">A deleção de administradores está indisponível no momento.</h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-footer">
