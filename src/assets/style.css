@@ -54,6 +54,15 @@
   height: 59vh;
 }
 
+.btnHome {
+  transition: all 0.3s;
+}
+
+.btnHome:hover {
+  transform: scale(1.05);
+  background-color: rgb(255, 17, 17) !important;
+}
+
 .searchInput {
   width: 40px;
   visibility: hidden;

@@ -70,7 +70,7 @@ $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
             <div class="card-body d-flex flex-column justify-content-between">
               <h5 class="card-title">Gerenciar Produtos</h5>
               <p class="card-text">Aqui você pode criar, ver, editar e apagar Produtos</p>
-              <a href="./../admin/ler_admin.php" type="button" class="col-md-12 btn bg-danger text-white align-self-center mt-2">Entrar</a>
+              <a href="./../admin/ler_admin.php" type="button" class="col-md-12 btn bg-danger text-white align-self-center mt-2 btnHome">Entrar</a>
             </div>
           </div>
         </div>
@@ -81,7 +81,7 @@ $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
             <div class="card-body d-flex flex-column justify-content-between">
               <h5 class="card-title">Gerenciar Categorias</h5>
               <p class="card-text">Aqui você pode criar, ver, editar e apagar Categorias</p>
-              <a href="./../categoria/ler_categoria.php" type="button" class="col-md-12 btn bg-danger text-white align-self-center mt-2">Entrar</a>
+              <a href="./../categoria/ler_categoria.php" type="button" class="col-md-12 btn bg-danger text-white align-self-center mt-2 btnHome">Entrar</a>
             </div>
           </div>
         </div>
@@ -92,7 +92,7 @@ $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
             <div class="card-body d-flex flex-column justify-content-between">
               <h5 class="card-title">Gerenciar Administradores</h5>
               <p class="card-text">Aqui você pode criar, ver, editar e apagar Administradores</p>
-              <a href="./../admin/ler_admin.php" type="button" class="col-md-12 btn bg-danger text-white align-self-center mt-2">Entrar</a>
+              <a href="./../admin/ler_admin.php" type="button" class="col-md-12 btn bg-danger text-white align-self-center mt-2 btnHome">Entrar</a>
             </div>
           </div>
         </div>
