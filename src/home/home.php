@@ -60,35 +60,45 @@ $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
   </div>
 
   <div class="container mt-3">
-    <h2 class="h2 text-center">Últimos Produtos</h2>
+    <h2 class="h2 text-center">Gerenciar</h2>
     <div class="d-flex justify-content-evenly">
       <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
-        <?php
-        $imgNum = 1;
-        $sql = "SELECT IMAGEM_URL FROM PRODUTO_IMAGEM WHERE PRODUTO_ID = :id";
-        foreach ($produtos as $produto) :
-          $query = $pdo->prepare($sql);
-          $query->bindParam("id", $produto["PRODUTO_ID"]);
-          $query->execute();
-          $imagem = $query->fetch(PDO::FETCH_ASSOC);
-
-        ?>
           <div class="col">
             <div class="card h-100">
-              <img src="<?= $imagem['IMAGEM_URL'] ?>" class="card-img-top imgHome" alt="Imagem do produto">
-              <div class="card-body">
-                <h5 class="card-title"><?= $produto['PRODUTO_NOME'] ?></h5>
-                <p class="card-text truncateText<?= $imgNum ?>"><?= $produto['PRODUTO_DESC'] ?></p>
+              <img src="./../assets/image/roupa.png" class="card-img-top imgHome" alt="Imagem de gerenciar Administrador">
+              <hr/>
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Gerenciar Produtos</h5>
+                <p class="card-text">Aqui você pode criar, ver, editar e apagar Produtos</p>
+                <a href="./../admin/ler_admin.php" type="button" class="col-md-12 btn bg-danger text-white align-self-center mt-2">Entrar</a>
               </div>
             </div>
           </div>
-        <?php
-          $imgNum++;
-        endforeach;
-        ?>
+          <div class="col">
+            <div class="card h-100">
+              <img src="./../assets/image/gerenciar.png" class="card-img-top imgHome" alt="Imagem de gerenciar Categoria">
+              <hr/>
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Gerenciar Categorias</h5>
+                <p class="card-text">Aqui você pode criar, ver, editar e apagar Categorias</p>
+                <a href="./../categoria/ler_categoria.php" type="button" class="col-md-12 btn bg-danger text-white align-self-center mt-2">Entrar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <img src="./../assets/image/admin.png" class="card-img-top imgHome" alt="Imagem de gerenciar Produto">
+              <hr/>
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Gerenciar Administradores</h5>
+                <p class="card-text">Aqui você pode criar, ver, editar e apagar Administradores</p>
+                <a href="./../admin/ler_admin.php" type="button" class="col-md-12 btn bg-danger text-white align-self-center mt-2">Entrar</a>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
-    <script src="./../scripts/truncateText.js"></script>
+  </div>
 </body>
 
 </html>
