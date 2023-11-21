@@ -13,19 +13,19 @@
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="./../home/home.php">Home</a>
+          <li class="nav-item ps-2">
+            <a class="nav-link" aria-current="page" href="./../home/home.php">Home</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item ps-2">
             <a class="nav-link" href="./../produtos/ler_produtos.php">Gerenciar Produtos</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item ps-2">
             <a class="nav-link" href="./../categoria/ler_categoria.php">Gerenciar Categoria</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item ps-2">
             <a class="nav-link" href="./../admin/ler_admin.php">Gerenciar Administrador</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item ps-2">
             <a class="nav-link" href="./../login/login.php">Sair</a>
           </li>
         </ul>

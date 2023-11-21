@@ -23,6 +23,19 @@
   border-radius: 50%;
 }
 
+.nav-item,
+.nav-link {
+  transition: background-color 0.6s;
+}
+
+.nav-item:hover {
+  background-color: #b70000;
+}
+
+.nav-link:hover {
+  color: white;
+}
+
 .carousel-indicators button {
   background-color: black !important;
   opacity: 1 !important;
