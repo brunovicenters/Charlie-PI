@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <?php include "../templates/navbar.php" ?>
     <div class="">
-        <a href="./ler_produtos.php"><button type="button" class="btn bg-danger text-white ms-3 mt-2"><i class="bi bi-caret-left-fill"></i></button></a>
+        <a href="./ler_produtos.php" type="button" class="btn bg-danger text-white ms-3 mt-2"><i class="bi bi-caret-left-fill"></i></a>
     </div>
     <div class="d-flex justify-content-center align-items-center mt-3 container mb-3">
         <div class="row">

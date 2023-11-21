@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <?php include "../templates/navbar.php" ?>
     <div class="">
-        <a href="./ler_admin.php"><button type="button" class="btn bg-danger text-white ms-3 mt-2"><i class="bi bi-caret-left-fill"></i></button></a>
+        <a href="./ler_admin.php" type="button" class="btn bg-danger text-white ms-3 mt-2"><i class="bi bi-caret-left-fill"></i></a>
     </div>
     <div class="d-flex justify-content-center align-items-center mt-5">
         <div class="card formCriar">
