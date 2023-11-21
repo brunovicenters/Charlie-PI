@@ -59,43 +59,43 @@ $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
     </button>
   </div>
 
-  <div class="container mt-3">
+  <div class="container mt-3 mb-4">
     <h2 class="h2 text-center">Gerenciar</h2>
     <div class="d-flex justify-content-evenly">
-      <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
-          <div class="col">
-            <div class="card h-100">
-              <img src="./../assets/image/roupa.png" class="card-img-top imgHome" alt="Imagem de gerenciar Administrador">
-              <hr/>
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title">Gerenciar Produtos</h5>
-                <p class="card-text">Aqui você pode criar, ver, editar e apagar Produtos</p>
-                <a href="./../admin/ler_admin.php" type="button" class="col-md-12 btn bg-danger text-white align-self-center mt-2">Entrar</a>
-              </div>
+      <div class="row row-cols-1 row-cols-md-3 g-5">
+        <div class="col">
+          <div class="card h-100">
+            <img src="./../assets/image/roupa.png" class="card-img-top imgHome" alt="Imagem de gerenciar Administrador">
+            <hr />
+            <div class="card-body d-flex flex-column justify-content-between">
+              <h5 class="card-title">Gerenciar Produtos</h5>
+              <p class="card-text">Aqui você pode criar, ver, editar e apagar Produtos</p>
+              <a href="./../admin/ler_admin.php" type="button" class="col-md-12 btn bg-danger text-white align-self-center mt-2">Entrar</a>
             </div>
           </div>
-          <div class="col">
-            <div class="card h-100">
-              <img src="./../assets/image/gerenciar.png" class="card-img-top imgHome" alt="Imagem de gerenciar Categoria">
-              <hr/>
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title">Gerenciar Categorias</h5>
-                <p class="card-text">Aqui você pode criar, ver, editar e apagar Categorias</p>
-                <a href="./../categoria/ler_categoria.php" type="button" class="col-md-12 btn bg-danger text-white align-self-center mt-2">Entrar</a>
-              </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="./../assets/image/gerenciar.png" class="card-img-top imgHome" alt="Imagem de gerenciar Categoria">
+            <hr />
+            <div class="card-body d-flex flex-column justify-content-between">
+              <h5 class="card-title">Gerenciar Categorias</h5>
+              <p class="card-text">Aqui você pode criar, ver, editar e apagar Categorias</p>
+              <a href="./../categoria/ler_categoria.php" type="button" class="col-md-12 btn bg-danger text-white align-self-center mt-2">Entrar</a>
             </div>
           </div>
-          <div class="col">
-            <div class="card h-100">
-              <img src="./../assets/image/admin.png" class="card-img-top imgHome" alt="Imagem de gerenciar Produto">
-              <hr/>
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title">Gerenciar Administradores</h5>
-                <p class="card-text">Aqui você pode criar, ver, editar e apagar Administradores</p>
-                <a href="./../admin/ler_admin.php" type="button" class="col-md-12 btn bg-danger text-white align-self-center mt-2">Entrar</a>
-              </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="./../assets/image/admin.png" class="card-img-top imgHome" alt="Imagem de gerenciar Produto">
+            <hr />
+            <div class="card-body d-flex flex-column justify-content-between">
+              <h5 class="card-title">Gerenciar Administradores</h5>
+              <p class="card-text">Aqui você pode criar, ver, editar e apagar Administradores</p>
+              <a href="./../admin/ler_admin.php" type="button" class="col-md-12 btn bg-danger text-white align-self-center mt-2">Entrar</a>
             </div>
           </div>
+        </div>
       </div>
     </div>
   </div>

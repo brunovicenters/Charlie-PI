@@ -33,8 +33,12 @@
 }
 
 .imgHome {
-  height: 70%;
-  object-fit: cover;
+  height: 50%;
+  object-fit: contain;
+}
+
+.col {
+  height: 59vh;
 }
 
 .searchInput {
