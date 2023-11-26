@@ -1,6 +1,8 @@
 <?php
+// Inicia a sessão
 session_start();
 
+// Verifica se o administrador está logado
 if (!isset($_SESSION['admin_login'])) {
     header("Location:./../login/login.php");
     exit();
@@ -9,13 +11,16 @@ if (!isset($_SESSION['admin_login'])) {
 // Conexão com o Banco de Dados
 require_once "../../conexao/conexao.php";
 
+// Verifica se existe um id no GET
 if (isset($_GET['id'])) {
+    // Sanitiza e busca a categoria no Banco de Dados
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
     $query = $pdo->prepare("SELECT * FROM CATEGORIA WHERE CATEGORIA_ID = :id");
     $query->bindParam("id", $id, PDO::PARAM_INT);
     $query->execute();
     $categoria = $query->fetch(PDO::FETCH_ASSOC);
 
+    // Caso haja uma categoria e POST não está vazio, sanitiza os valores POST e atualiza a categoria no Banco de Dados
     if ($categoria) {
         if (!empty($_POST)) {
             try {
@@ -30,20 +35,29 @@ if (isset($_GET['id'])) {
                 $query->bindParam('id', $id, PDO::PARAM_INT);
                 $query->execute();
 
+                // Redireciona para a listagem de categoria e exibe uma mensagem de sucesso
                 header('Location:./ler_categoria.php?successEdit');
+                // Encerra o código
                 exit();
             } catch (PDOException $e) {
+                // Mostra o erro
                 echo 'Erro: ' . $e->getMessage();
             }
         } else {
+            // Redireciona para a listagem de categoria e exibe uma mensagem de formulário inválido
             header('Location:./ler_categoria.php?formInvalid');
+            // Encerra o código
             exit();
         }
     } else {
+        // Redireciona para a listagem de categoria e exibe uma mensagem de 404
         header("Location:./ler_categoria.php?cat404");
+        // Encerra o código
         exit();
     }
 } else {
+    // Redireciona para a listagem de categoria e exibe uma mensagem de 404
     header("Location:./ler_categoria.php?cat404");
+    // Encerra o código
     exit();
 }

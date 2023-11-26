@@ -1,22 +1,28 @@
 <?php
+// Inicia a sessão
 session_start();
 
+// Verifica se o administrador está logado
 if (!isset($_SESSION["admin_login"])) {
     header("Location:../login/login.php");
     exit();
 }
 
+// Define o nome da página e de elementos da página
 $pagNome = "Gerenciar Administrador";
 $addButton = "Adicionar Administrador";
 $linkAdd = "./criar_admin.php";
 $redirect = "ler_admin.php";
 
+// Conexão com o Banco de Dados
 require_once "../../conexao/conexao.php";
 
+// Realizando pesquisa baseada na barra de pesquisa
 if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     try {
         $search = $_POST['search'];
 
+        // Pesquisa por nome no Banco de dados
         $sql = "SELECT ADM_ID, ADM_NOME, ADM_EMAIL, ADM_SENHA, ADM_ATIVO, ADM_IMAGEM from ADMINISTRADOR where ADM_NOME like '%$search%' ORDER BY ADM_ID";
         $query = $pdo->prepare($sql);
 
@@ -29,11 +35,12 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
             exit();
         }
     } catch (PDOException $e) {
+        // Mensagem de erro
         echo "Erro: " . $e->getMessage();
     }
-    // Realizando pesquisa geral
 } else {
     try {
+        // Realizando pesquisa geral
         $sql = "SELECT ADM_ID, ADM_NOME, ADM_EMAIL, ADM_SENHA, ADM_ATIVO, ADM_IMAGEM from ADMINISTRADOR ORDER BY ADM_ID";
         $query = $pdo->prepare($sql);
 
@@ -41,6 +48,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
 
         $admins = $query->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
+        // Mensagem de erro
         echo "Erro: " . $e->getMessage();
     }
 }
@@ -94,6 +102,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                     <?php } ?>
                                 <td>
                                     <?php
+                                    // Caso id do admin é igual ao id do respectivo admin OU seja SA(id 1/Charlie), consegue editar
                                     if ($_SESSION['admin_id'] == $admin['ADM_ID'] || $_SESSION['admin_id'] == 1) {
                                     ?>
                                         <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#editModal<?= $admin['ADM_ID'] ?>"><i class="bi bi-pencil-square"></i></a>
@@ -106,6 +115,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
+                                                        <!-- Importando formulário de edição -->
                                                         <?php include "./../templates/edit_form_admin.php" ?>
                                                     </div>
                                                 </div>
@@ -117,6 +127,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                 </td>
                                 <td>
                                     <?php
+                                    // Caso id do admin é igual ao id do respectivo admin OU seja SA(id 1/Charlie), consegue deletar
                                     if ($_SESSION['admin_id'] == $admin['ADM_ID'] || $_SESSION['admin_id'] == 1) {
                                     ?>
                                         <a class="btn btn-black" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $admin['ADM_ID'] ?>"><i class="bi bi-trash3"></i></a>
@@ -129,6 +140,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-footer">
+                                                        <!-- Botão de Delete desativado -->
                                                         <!-- <a href="./excluir_admin.php?id=< ?= $admin['ADM_ID'] ?>" type="btn" class="btn bg-danger text-white">Delete</a> -->
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                     </div>
@@ -147,7 +159,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                     </thead>
                 </table>
             </main>
-            <!-- Mensagem de erro -->
+            <!-- Mensagem para: -->
             <?php
             if (isset($_GET['empty']) && !empty($_GET['empty'])) { // Nenhum resultado para pesquisa
                 $empty = $_GET['empty'];
@@ -178,6 +190,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
             ?>
         </div>
     </div>
+    <!-- Importando script de msgs toast -->
     <script src="../scripts/toast.js"></script>
 </body>
 

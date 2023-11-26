@@ -1,25 +1,29 @@
 <?php
+// Nome da página
 $pagNome = "Criar Adiministrador";
 
-// Inicia a sessão para gerenciamento do usuário.
+// Inicia a sessão
 session_start();
 
-// Importa a configuração de conexão com o banco de dados.
-require_once('../../conexao/conexao.php');
-
-// Verifica se o administrador está logado.
+// Verifica se o administrador está logado
 if (!isset($_SESSION['admin_login'])) {
     header("Location:./../login/login.php");
     exit();
 }
 
+// Conexão com o Banco de Dados
+require_once('../../conexao/conexao.php');
+
+// Verifica se o REQUEST_METHOD é POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Salva os valores dos inputs em variáveis e faz a sanitização
     $nome = htmlspecialchars($_POST['nome']);
     $email = htmlspecialchars($_POST['email']);
     $descr = htmlspecialchars($_POST['senha']);
     $ativo = isset($_POST['ativo']) ? 1 : 0;
     $imagem = isset($_POST['imagem']) ? filter_input(INPUT_POST, 'imagem', FILTER_SANITIZE_URL) : '';
 
+    // Realiza a inserção do admin no Banco de Dados
     try {
         $sql = "INSERT INTO ADMINISTRADOR (ADM_NOME, ADM_EMAIL, ADM_SENHA, ADM_ATIVO, ADM_IMAGEM) VALUES (:nome , :email, :senha, :ativo, :imagem)";
         $query = $pdo->prepare($sql);
@@ -29,9 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $query->bindParam(':ativo', $ativo, PDO::PARAM_INT);
         $query->bindParam(':imagem', $imagem);
         $query->execute();
+
+        // Redireciona para a listagem de admin e exibe uma mensagem de sucesso
         header("Location:./ler_admin.php?successCriar");
+        // Encerra o código
         exit();
     } catch (PDOException $e) {
+        // Mostra o erro
         echo $e->getMessage();
     }
 }

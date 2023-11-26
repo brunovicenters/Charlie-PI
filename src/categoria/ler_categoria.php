@@ -1,12 +1,14 @@
 <?php
+// Inicia a sessão
 session_start();
 
+// Verifica se o administrador está logado
 if (!isset($_SESSION['admin_login'])) {
     header("Location:./../login/login.php");
     exit();
 }
 
-// Definindo variáveis para os imports
+// Define o nome da página e de elementos da página
 $pagNome = "Gerenciar Categoria";
 $addButton = "Adicionar Categoria";
 $linkAdd = "./criar_categoria.php";
@@ -21,6 +23,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     try {
         $search = $_POST['search'];
 
+        // Pesquisa por nome no Banco de dados
         $sql = "SELECT CATEGORIA_ID, CATEGORIA_NOME, CATEGORIA_DESC, CATEGORIA_ATIVO from CATEGORIA where CATEGORIA_NOME like '%$search%' ORDER BY CATEGORIA_ID";
         $query = $pdo->prepare($sql);
 
@@ -33,11 +36,12 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
             exit();
         }
     } catch (PDOException $e) {
+        // Mensagem de erro
         echo "Erro: " . $e->getMessage();
     }
-    // Realizando pesquisa geral
 } else {
     try {
+        // Realizando pesquisa geral
         $sql = "SELECT CATEGORIA_ID, CATEGORIA_NOME, CATEGORIA_DESC, CATEGORIA_ATIVO from CATEGORIA ORDER BY CATEGORIA_ID";
         $query = $pdo->prepare($sql);
 
@@ -45,6 +49,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
 
         $categorias = $query->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
+        // Mensagem de erro
         echo "Erro: " . $e->getMessage();
     }
 }
@@ -100,6 +105,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
+                                                    <!-- Importando formulário de edição -->
                                                     <?php include "./../templates/edit_form_categoria.php" ?>
                                                 </div>
                                             </div>
@@ -117,6 +123,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-footer">
+                                                    <!-- Botão de Delete desativado -->
                                                     <!-- <a href="./excluir_categoria.php?id=< ?=  $categoria['CATEGORIA_ID'] ?>" type="btn" class="btn bg-danger text-white">Delete</a> -->
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                 </div>
@@ -132,7 +139,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                     </thead>
                 </table>
             </main>
-            <!-- Mensagem de erro -->
+            <!-- Mensagem para: -->
             <?php
             if (isset($_GET['empty']) && !empty($_GET['empty'])) { // Nenhum resultado para pesquisa
                 $empty = $_GET['empty'];
@@ -163,6 +170,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
             ?>
         </div>
     </div>
+    <!-- Importando script de msgs toast -->
     <script src="../scripts/toast.js"></script>
 </body>
 

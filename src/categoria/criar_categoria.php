@@ -1,23 +1,27 @@
 <?php
+// Nome da página
 $pagNome = "Criar Categoria";
 
-// Inicia a sessão para gerenciamento do usuário.
+// Inicia a sessão para gerenciamento do usuário
 session_start();
 
-// Importa a configuração de conexão com o banco de dados.
-require_once('../../conexao/conexao.php');
-
-// Verifica se o administrador está logado.
+// Verifica se o administrador está logado
 if (!isset($_SESSION['admin_login'])) {
     header("Location:./../login/login.php");
     exit();
 }
 
+// Conexão com o Banco de Dados
+require_once('../../conexao/conexao.php');
+
+// Verifica se o REQUEST_METHOD é POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Salva os valores dos inputs em variáveis e faz a sanitização
     $nome = htmlspecialchars($_POST['nome']);
     $descr = htmlspecialchars($_POST['desc']);
     $ativo = isset($_POST['ativo']) ? 1 : 0;
 
+    // Realiza a inserção da categoria no Banco de Dados
     try {
         $sql = "INSERT INTO CATEGORIA (CATEGORIA_NOME, CATEGORIA_DESC, CATEGORIA_ATIVO) VALUES (:nome , :desc, :ativo)";
         $query = $pdo->prepare($sql);
@@ -25,9 +29,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $query->bindParam(':desc', $descr, PDO::PARAM_STR);
         $query->bindParam(':ativo', $ativo, PDO::PARAM_INT);
         $query->execute();
+
+        // Redireciona para a listagem de categorias e exibe uma mensagem de sucesso
         header("Location:./ler_categoria.php?successCriar");
+        // Encerra o código
         exit();
     } catch (PDOException $e) {
+        // Mostra o erro
         echo $e->getMessage();
     }
 }
