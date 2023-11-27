@@ -46,13 +46,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- Head -->
 <?php include "../templates/head.php" ?>
 
 <body>
+
+    <!-- Navbar -->
     <?php include "../templates/navbar.php" ?>
+
+    <!-- Botão de Voltar -->
     <div class="">
         <a href="./ler_admin.php" type="button" class="btn bg-danger text-white ms-3 mt-2"><i class="bi bi-caret-left-fill"></i></a>
     </div>
+
+    <!-- Card Formulário -->
     <div class="d-flex justify-content-center align-items-center mt-5">
         <div class="card formCriar">
             <div class="card-body">

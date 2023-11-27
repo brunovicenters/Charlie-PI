@@ -58,14 +58,19 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- Head -->
 <?php include "../templates/head.php" ?>
 
 <body id="categoria">
+
+    <!-- Navbar -->
     <?php include "../templates/navbar.php" ?>
     <div class="container">
         <div class="row mx-2">
-            <!-- Index Header -->
+            <!-- Header Tabela -->
             <?php include "../templates/header_gerenciar.php" ?>
+
+            <!-- Tabela de Categorias -->
             <main class="p-0 tabela">
                 <table class="text-center col-md-12">
                     <thead class="bg-danger-subtle sticky-top">
