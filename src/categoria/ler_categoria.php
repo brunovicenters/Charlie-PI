@@ -33,6 +33,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
         if (empty($categorias)) {
             // Redireciona com erro
             header("Location:./ler_categoria.php?empty=$search");
+            // Encerra o código
             exit();
         }
     } catch (PDOException $e) {
