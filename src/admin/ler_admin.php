@@ -190,7 +190,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
             ?>
         </div>
     </div>
-    <!-- Importando script de msgs toast -->
+    <!-- Importando script de mensagens toast -->
     <script src="../scripts/toast.js"></script>
 </body>
 
