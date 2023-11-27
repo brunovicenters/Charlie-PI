@@ -1,11 +1,15 @@
 <?php
+// Inicia sessão e a apaga
 session_start();
-session_destroy();
+$_SESSION = array();
+
+// Define o nome da página
 $pagNome = "Login"
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- Head -->
 <?php include "../templates/head.php"; ?>
 
 <body id="login">
@@ -14,6 +18,7 @@ $pagNome = "Login"
             <img class="logoCharlie mb-3" src="../assets/image/logoCharlie.png">
             <h2 class="h2 text-center z-1 mb-0">Login</h2>
 
+            <!-- Card Formulário Login -->
             <div class="card bg-danger">
                 <div class="card-body">
                     <form action="./processa_login.php" method="post">
@@ -34,6 +39,7 @@ $pagNome = "Login"
         include "./../templates/toast.php";
     }
     ?>
+    <!-- Importando script de mensagens toast -->
     <script src="../scripts/toast.js"></script>
 </body>
 
