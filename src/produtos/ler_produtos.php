@@ -1,16 +1,20 @@
 <?php
+// Inicia a sessão
 session_start();
 
+// Verifica se o administrador está logado
 if (!isset($_SESSION['admin_login'])) {
     header("Location:./../login/login.php");
     exit();
 }
 
+// Define o nome da página e de elementos da página
 $pagNome = "Gerenciar produtos";
 $addButton = "Adicionar produto";
 $linkAdd = "./criar_produtos.php";
 $redirect = "ler_produtos.php";
 
+// Conexão com o Banco de Dados
 require_once "../../conexao/conexao.php";
 
 // Buscar todas as categorias
@@ -19,16 +23,19 @@ try {
     $stmt_categoria->execute();
     $categorias = $stmt_categoria->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
+    // Mensagem de erro
     echo $e->getMessage();
 }
 
+// Realizando pesquisa baseada na barra de pesquisa
 if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
     try {
         $search = $_POST['search'];
 
+        // Pesquisa por nome no Banco de dados
         $sql = "SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_ID, C.CATEGORIA_NOME, PI.IMAGEM_ID, PI.IMAGEM_URL, PE.PRODUTO_QTD
         FROM PRODUTO P
-        JOIN CATEGORIA C ON P.CATEGORIA_ID = C.CATEGORIA_ID 
+        JOIN CATEGORIA C ON P.CATEGORIA_ID = C.CATEGORIA_ID
         LEFT JOIN PRODUTO_IMAGEM PI ON P.PRODUTO_ID = PI.PRODUTO_ID
         LEFT JOIN PRODUTO_ESTOQUE PE ON P.PRODUTO_ID = PE.PRODUTO_ID
         WHERE P.PRODUTO_NOME LIKE '%$search%'
@@ -40,17 +47,19 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
         if (empty($produtos)) {
             // Redireciona com erro
             header("Location:./ler_produtos.php?empty=$search");
+            // Encerra o código
             exit();
         }
     } catch (PDOException $e) {
+        // Mensagem de erro
         echo "Erro: " . $e->getMessage();
     }
-    // Realizando pesquisa geral
 } else {
     try {
+        // Realizando pesquisa geral
         $sql = "SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC, P.PRODUTO_PRECO, P.PRODUTO_DESCONTO, P.CATEGORIA_ID, P.PRODUTO_ATIVO, C.CATEGORIA_ID, C.CATEGORIA_NOME, PI.IMAGEM_ID, PI.IMAGEM_URL, PE.PRODUTO_QTD
         FROM PRODUTO P
-        JOIN CATEGORIA C ON P.CATEGORIA_ID = C.CATEGORIA_ID 
+        JOIN CATEGORIA C ON P.CATEGORIA_ID = C.CATEGORIA_ID
         LEFT JOIN PRODUTO_IMAGEM PI ON P.PRODUTO_ID = PI.PRODUTO_ID
         LEFT JOIN PRODUTO_ESTOQUE PE ON P.PRODUTO_ID = PE.PRODUTO_ID
         ORDER BY P.PRODUTO_ID, PI.IMAGEM_ORDEM";
@@ -58,6 +67,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
         $query->execute();
         $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
+        // Mensagem de erro
         echo "Erro: " . $e->getMessage();
     }
 }
@@ -65,14 +75,18 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- Head -->
 <?php include "../templates/head.php" ?>
 
 <body id="produto">
+    <!-- Navbar -->
     <?php include "../templates/navbar.php" ?>
     <div class="container">
         <div class="row mx-2">
-            <!-- Index Header -->
+            <!-- Header Tabela -->
             <?php include "../templates/header_gerenciar.php" ?>
+
+            <!-- Tabela de Produtos -->
             <main class="p-0 tabela">
                 <table class="text-center col-md-12">
                     <thead class="bg-danger-subtle sticky-top">
@@ -129,6 +143,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
+                                                    <!-- Importando formulário de edição -->
                                                     <?php include "./../templates/edit_form_produtos.php" ?>
                                                 </div>
                                             </div>
@@ -146,6 +161,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-footer">
+                                                    <!-- Botão de Delete desativado -->
                                                     <!-- <a href="./excluir_produtos.php?id=< ?= $produto['PRODUTO_ID'] ?>" type="btn" class="btn bg-danger text-white">Delete</a> -->
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                 </div>
@@ -161,7 +177,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                     </thead>
                 </table>
             </main>
-            <!-- Mensagem de erro -->
+            <!-- Mensagem para: -->
             <?php
             if (isset($_GET['empty']) && !empty($_GET['empty'])) { // Nenhum resultado para pesquisa
                 $empty = $_GET['empty'];
@@ -176,11 +192,11 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                 $bgClass = "bg-success text-white";
                 $msg = "Produto deletado com sucesso!";
                 include "./../templates/toast.php";
-            } else if (isset($_GET['successCriar'])) {
+            } else if (isset($_GET['successCriar'])) { // Criação realizada com sucesso
                 $bgClass = "bg-success text-white";
                 $msg = "Produto criado com sucesso!";
                 include "./../templates/toast.php";
-            } else if (isset($_GET['successAdd'])) {
+            } else if (isset($_GET['successAdd'])) { // Adição realizada com sucesso
                 $bgClass = "bg-success text-white";
                 $msg = "Imagem(ns) adicionada(s) com sucesso!";
                 include "./../templates/toast.php";
@@ -188,7 +204,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                 $bgClass = "bg-warning";
                 $msg = "Produto inexistente!";
                 include "./../templates/toast.php";
-            } else if (isset($_GET['formInvalid'])) {
+            } else if (isset($_GET['formInvalid'])) { // Envio de formulário inválido
                 $bgClass = "bg-warning";
                 $msg = "Envio de formulário inválido!";
                 include "./../templates/toast.php";
@@ -196,6 +212,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
             ?>
         </div>
     </div>
+    <!-- Importando script de mensagens toast -->
     <script src="../scripts/toast.js"></script>
 </body>
 

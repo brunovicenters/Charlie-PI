@@ -1,19 +1,19 @@
 <?php
 $pagNome = "Criar Produto";
 
-// Inicia a sessão para gerenciamento do usuário.
+// Inicia a sessão
 session_start();
 
-// Importa a configuração de conexão com o banco de dados.
-require_once('../../conexao/conexao.php');
-
-// Verifica se o administrador está logado.
+// Verifica se o administrador está logado
 if (!isset($_SESSION['admin_login'])) {
     header("Location:./../login/login.php");
     exit();
 }
 
-// Bloco de consulta para buscar categorias.
+// Conexão com o Banco de Dados
+require_once('../../conexao/conexao.php');
+
+// Busca todas as categorias
 try {
     $stmt_categoria = $pdo->prepare("SELECT CATEGORIA_ID, CATEGORIA_NOME FROM CATEGORIA");
     $stmt_categoria->execute();
@@ -22,9 +22,9 @@ try {
     echo $e->getMessage();
 }
 
-// Bloco que será executado quando o formulário for submetido.
+// Verifica se o REQUEST_METHOD é POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Pegando os valores do POST.
+    // Salva os valores dos inputs em variáveis e faz a sanitização
     $nome = htmlspecialchars($_POST['nome']);
     $descr = htmlspecialchars($_POST['desc']);
     $preco = htmlspecialchars($_POST['preco']);
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $qtd = htmlspecialchars($_POST['qtd']);
     $imagens = $_POST['imagem'];
 
-    // Inserindo produto no banco.
+    // Realiza a inserção do produto no Banco de Dados
     try {
         $sql = "INSERT INTO PRODUTO (PRODUTO_NOME, PRODUTO_DESC, PRODUTO_PRECO, CATEGORIA_ID, PRODUTO_ATIVO, PRODUTO_DESCONTO) VALUES (:nome, :desc, :preco, :categoria_id, :ativo, :desconto)";
         $query = $pdo->prepare($sql);
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Pegando o ID do produto inserido.
         $produto_id = $pdo->lastInsertId();
 
-        // Inserindo imagens no banco.
+        // Realiza a inserção da imagem no Banco de Dados
         foreach ($imagens as $ordem => $url_imagem) {
             $sql_imagem = "INSERT INTO PRODUTO_IMAGEM (IMAGEM_URL, PRODUTO_ID, IMAGEM_ORDEM) VALUES (:url_imagem, :produto_id, :ordem_imagem)";
             $query_imagem = $pdo->prepare($sql_imagem);
@@ -59,31 +59,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $query_imagem->execute();
         }
 
-
+        // Realiza a inserção do estoque no Banco de Dados
         $sql = 'INSERT INTO PRODUTO_ESTOQUE (PRODUTO_ID, PRODUTO_QTD) VALUES (:id, :qtd)';
         $query_qtd = $pdo->prepare($sql);
         $query_qtd->bindParam('id', $produto_id, PDO::PARAM_INT);
         $query_qtd->bindParam('qtd', $qtd, PDO::PARAM_INT);
         $query_qtd->execute();
 
-
+        // Redireciona para a página de listagem e mostra uma mensagem de sucesso
         header("Location:./ler_produtos.php?successCriar");
-        // Stops the code --
+        // Encerra o código
         exit();
     } catch (PDOException $e) {
+        // Mensagem de erro
         echo $e->getMessage();
     }
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- Head -->
 <?php include "../templates/head.php" ?>
 
 <body>
+    <!-- Navbar -->
     <?php include "../templates/navbar.php" ?>
+
+    <!-- Botão de Voltar -->
     <div class="">
         <a href="./ler_produtos.php" type="button" class="btn bg-danger text-white ms-3 mt-2"><i class="bi bi-caret-left-fill"></i></a>
     </div>
+
+    <!-- Card Formulário -->
     <div class="d-flex justify-content-center align-items-center mt-3 container mb-3">
         <div class="row">
             <div class="card formCriar">

@@ -1,24 +1,29 @@
 <?php
+// Define o nome da pagina
 $pagNome = "Adicionar imagem";
 
-// Inicia a sessão para gerenciamento do usuário.
+// Inicia a sessão
 session_start();
 
-// Importa a configuração de conexão com o banco de dados.
-require_once('../../conexao/conexao.php');
-
-// Verifica se o administrador está logado.
+// Verifica se o administrador está logado
 if (!isset($_SESSION['admin_login'])) {
     header("Location:./../login/login.php");
     exit();
 }
 
-// Bloco que será executado quando o formulário for submetido.
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $produto_id = $_POST['id'];
+// Conexão com o Banco de Dados
+require_once('../../conexao/conexao.php');
 
+// Verifica se o REQUEST_METHOD é POST
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    $produto_id = $_POST['id'];
     $imagens = $_POST['imagem'];
+
+    // Verifica se existe imagens
     if ($imagens) {
+
+        // Pegando a ordem da imagem mais recente do produto
         $query = $pdo->prepare('SELECT max(IMAGEM_ORDEM) FROM PRODUTO_IMAGEM WHERE PRODUTO_ID = :id');
         $query->bindParam('id', $produto_id, PDO::PARAM_INT);
         $query->execute();
@@ -38,28 +43,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $query_imagem->execute();
             }
 
+            // Retorna para a página de listagem de produtos e envia uma mensagem de sucesso
             header("Location:./ler_produtos.php?successAdd");
-            // Stops the code --
+            // Encerra o código
             exit();
         } catch (PDOException $e) {
+            // Mostra o erro
             echo $e->getMessage();
         }
     } else {
+        // Redireciona para a página de listagem de produtos e envia uma mensagem de formulário inválido
         header("Location:./add_imagem.php?formInvalid");
-        // Stops the code --
+        // Encerra o código
         exit();
     }
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- Head -->
 <?php include "../templates/head.php" ?>
 
 <body>
+    <!-- Navbar -->
     <?php include "../templates/navbar.php" ?>
+
+    <!-- Botão de Voltar -->
     <div class="">
         <a href="./ler_produtos.php" type="button" class="btn bg-danger text-white ms-3 mt-2"><i class="bi bi-caret-left-fill"></i></a>
     </div>
+
+    <!-- Card Formulário -->
     <div class="d-flex justify-content-center align-items-center mt-3 container mb-3">
         <div class="row">
             <div class="card formCriar">
@@ -81,8 +96,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
     </div>
+    <!-- Mensagem para: -->
     <?php
-    if (isset($_GET['formInvalid'])) {
+    if (isset($_GET['formInvalid'])) { // Envio de formulário inválido
         $bgClass = "bg-warning";
         $msg = "Envio de formulário inválido!";
         include "./../templates/toast.php";
@@ -91,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <!-- Adiciona um novo campo de URL para imagem -->
     <script src="./../scripts/adicionarImagem.js"></script>
-    <!-- Importa os toasts -->
+    <!-- Importando script de mensagens toast -->
     <script src="../scripts/toast.js"></script>
 </body>
 
