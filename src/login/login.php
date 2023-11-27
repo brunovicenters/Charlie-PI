@@ -32,8 +32,8 @@ $pagNome = "Login"
             </div>
         </div>
     </div>
-    <!-- Mensagem de erro -->
-    <?php if (isset($_GET['error'])) {
+    <!-- Mensagem para: -->
+    <?php if (isset($_GET['error'])) { // Erro de login
         $bgClass = "bg-danger text-white";
         $msg = "E-mail ou senha inválidos!";
         include "./../templates/toast.php";

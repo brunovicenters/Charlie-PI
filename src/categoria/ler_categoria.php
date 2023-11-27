@@ -159,7 +159,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                 $bgClass = "bg-success text-white";
                 $msg = "Categoria deletada com sucesso!";
                 include "./../templates/toast.php";
-            } else if (isset($_GET['successCriar'])) {
+            } else if (isset($_GET['successCriar'])) { // Criação realizada com sucesso
                 $bgClass = "bg-success text-white";
                 $msg = "Categoria criada com sucesso!";
                 include "./../templates/toast.php";
@@ -167,7 +167,7 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                 $bgClass = "bg-warning";
                 $msg = "Categoria inexistente!";
                 include "./../templates/toast.php";
-            } else if (isset($_GET['formInvalid'])) {
+            } else if (isset($_GET['formInvalid'])) { // Envio de formulário inválido
                 $bgClass = "bg-warning";
                 $msg = "Envio de formulário inválido!";
                 include "./../templates/toast.php";
