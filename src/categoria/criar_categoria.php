@@ -2,7 +2,7 @@
 // Nome da página
 $pagNome = "Criar Categoria";
 
-// Inicia a sessão para gerenciamento do usuário
+// Inicia a sessão
 session_start();
 
 // Verifica se o administrador está logado
