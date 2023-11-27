@@ -1,6 +1,12 @@
 <?php
+
+// Inicia a sessão
 session_start();
 
+// Nome da página
+$pagNome = "Bem-vindo ao Charlie, " . $_SESSION["admin_nome"];
+
+// Verifica se o administrador está logado
 if (!isset($_SESSION['admin_login'])) {
   header("Location:./../login/login.php");
   exit();
@@ -8,25 +14,20 @@ if (!isset($_SESSION['admin_login'])) {
 
 // Conexão com o Banco de Dados
 require_once "../../conexao/conexao.php";
-
-$pagNome = "Bem-vindo ao Charlie, " . $_SESSION["admin_nome"];
-$query = $pdo->prepare("SELECT P.PRODUTO_ID, P.PRODUTO_NOME, P.PRODUTO_DESC
-                        FROM PRODUTO P
-                        ORDER BY P.PRODUTO_ID DESC LIMIT 3");
-$query->execute();
-$produtos = $query->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- Head -->
 <?php include "../templates/head.php" ?>
 
 <body id="home">
 
+  <!-- Navbar -->
   <?php include "../templates/navbar.php" ?>
 
+  <!-- Carousel -->
   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -59,6 +60,7 @@ $produtos = $query->fetchAll(PDO::FETCH_ASSOC);
     </button>
   </div>
 
+  <!-- Gerenciar -->
   <div class="container mt-3 mb-4">
     <h2 class="h2 text-center">Gerenciar</h2>
     <div class="d-flex justify-content-evenly">
