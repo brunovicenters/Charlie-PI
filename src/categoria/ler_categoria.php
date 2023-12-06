@@ -172,6 +172,10 @@ if (isset($_POST['search']) && !empty(trim($_POST['search']))) {
                 $bgClass = "bg-warning";
                 $msg = "Envio de formulário inválido!";
                 include "./../templates/toast.php";
+            } else if (isset($_GET['catExist'])) { // Categoria existente
+                $bgClass = "bg-warning";
+                $msg = "Categoria existente!";
+                include "./../templates/toast.php";
             }
             ?>
         </div>

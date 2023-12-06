@@ -21,22 +21,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $descr = htmlspecialchars($_POST['desc']);
     $ativo = isset($_POST['ativo']) ? 1 : 0;
 
-    // Realiza a inserção da categoria no Banco de Dados
-    try {
-        $sql = "INSERT INTO CATEGORIA (CATEGORIA_NOME, CATEGORIA_DESC, CATEGORIA_ATIVO) VALUES (:nome , :desc, :ativo)";
-        $query = $pdo->prepare($sql);
-        $query->bindParam(':nome', $nome, PDO::PARAM_STR);
-        $query->bindParam(':desc', $descr, PDO::PARAM_STR);
-        $query->bindParam(':ativo', $ativo, PDO::PARAM_INT);
-        $query->execute();
+    $query = $pdo->prepare('SELECT * FROM CATEGORIA WHERE CATEGORIA_NOME = :nome and CATEGORIA_DESC = :desc');
+    $query->bindParam(':nome', $nome, PDO::PARAM_STR);
+    $query->bindParam(':desc', $descr, PDO::PARAM_STR);
+    $query->execute();
 
-        // Redireciona para a listagem de categorias e exibe uma mensagem de sucesso
-        header("Location:./ler_categoria.php?successCriar");
+    if ($query->rowCount() == 0) {
+        // Realiza a inserção da categoria no Banco de Dados
+        try {
+            $sql = "INSERT INTO CATEGORIA (CATEGORIA_NOME, CATEGORIA_DESC, CATEGORIA_ATIVO) VALUES (:nome , :desc, :ativo)";
+            $query = $pdo->prepare($sql);
+            $query->bindParam(':nome', $nome, PDO::PARAM_STR);
+            $query->bindParam(':desc', $descr, PDO::PARAM_STR);
+            $query->bindParam(':ativo', $ativo, PDO::PARAM_INT);
+            $query->execute();
+
+            // Redireciona para a listagem de categorias e exibe uma mensagem de sucesso
+            header("Location:./ler_categoria.php?successCriar");
+            // Encerra o código
+            exit();
+        } catch (PDOException $e) {
+            // Mostra o erro
+            echo $e->getMessage();
+        }
+    } else {
+        // Redireciona para a listagem de categorias e exibe uma mensagem de categoria existente
+        header("Location:./ler_categoria.php?catExist");
         // Encerra o código
         exit();
-    } catch (PDOException $e) {
-        // Mostra o erro
-        echo $e->getMessage();
     }
 }
 ?>

@@ -28,17 +28,29 @@ if (isset($_GET['id'])) {
                 $desc = isset($_POST['desc']) ? htmlspecialchars($_POST["desc"]) : '';
                 $ativo = isset($_POST['ativo']) ? 1 : 0;
 
-                $query = $pdo->prepare('UPDATE CATEGORIA SET CATEGORIA_NOME = :nome, CATEGORIA_DESC = :desc, CATEGORIA_ATIVO = :ativo WHERE CATEGORIA_ID = :id');
-                $query->bindParam('nome', $nome, PDO::PARAM_STR);
-                $query->bindParam('desc', $desc, PDO::PARAM_STR);
-                $query->bindParam('ativo', $ativo, PDO::PARAM_INT);
-                $query->bindParam('id', $id, PDO::PARAM_INT);
+                $query = $pdo->prepare('SELECT * FROM CATEGORIA WHERE CATEGORIA_NOME = :nome and CATEGORIA_DESC = :desc');
+                $query->bindParam(':nome', $nome, PDO::PARAM_STR);
+                $query->bindParam(':desc', $desc, PDO::PARAM_STR);
                 $query->execute();
 
-                // Redireciona para a listagem de categoria e exibe uma mensagem de sucesso
-                header('Location:./ler_categoria.php?successEdit');
-                // Encerra o código
-                exit();
+                if ($query->rowCount() == 0) {
+                    $query = $pdo->prepare('UPDATE CATEGORIA SET CATEGORIA_NOME = :nome, CATEGORIA_DESC = :desc, CATEGORIA_ATIVO = :ativo WHERE CATEGORIA_ID = :id');
+                    $query->bindParam('nome', $nome, PDO::PARAM_STR);
+                    $query->bindParam('desc', $desc, PDO::PARAM_STR);
+                    $query->bindParam('ativo', $ativo, PDO::PARAM_INT);
+                    $query->bindParam('id', $id, PDO::PARAM_INT);
+                    $query->execute();
+
+                    // Redireciona para a listagem de categoria e exibe uma mensagem de sucesso
+                    header('Location:./ler_categoria.php?successEdit');
+                    // Encerra o código
+                    exit();
+                } else {
+                    // Redireciona para a listagem de categoria e exibe uma mensagem de categoria existente
+                    header('Location:./ler_categoria.php?catExist');
+                    // Encerra o código
+                    exit();
+                }
             } catch (PDOException $e) {
                 // Mostra o erro
                 echo 'Erro: ' . $e->getMessage();
