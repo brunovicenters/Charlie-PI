@@ -39,6 +39,9 @@ if (isset($_GET['id']) && ($_SESSION['admin_id'] == $_GET['id'] || $_SESSION['ad
                 $query->bindParam('id', $id, PDO::PARAM_INT);
                 $query->execute();
 
+                $_SESSION["admin_nome"] = $nome;
+                $_SESSION["admin_img"] = $imagem;
+
                 // Redireciona para a listagem de adm e exibe uma mensagem de sucesso
                 header('Location:./ler_admin.php?successEdit');
                 // Encerra o código
