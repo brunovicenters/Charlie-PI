@@ -12,6 +12,7 @@ function adicionarImagem() {
   containerImagens.appendChild(newImg);
   const novoInput = document.createElement("input");
   novoInput.classList.add("form-control", "col-md-12", "mt-2", "mb-3", "pe-5");
+  novoInput.setAttribute("required", "");
   novoInput.type = "url";
   novoInput.name = "imagem[]";
   newImg.appendChild(novoInput);
